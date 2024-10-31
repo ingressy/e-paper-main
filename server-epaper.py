@@ -60,7 +60,7 @@ def start_server():
             print(f"Verbindung von {addr} akzeptiert")
             
             with conn:
-                        # Zuerst die Länge des Strings (4 Bytes) empfangen
+                # Zuerst die Länge des Strings (4 Bytes) empfangen
                 length_data = conn.recv(4)
                 if len(length_data) < 4:
                     print("Fehler: Ungültige Längenangabe empfangen")
