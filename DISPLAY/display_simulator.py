@@ -45,7 +45,7 @@ class Client:
         # Ausgabe des uint8-Arrays
         #print("Empfangenes uint8-Array:", list(uint8_array))
         ### HIER WÜRDE DAS BILD AUF E-INK DARGESTELLT WERDEN ###
-        # Auf 138240 Elemente zuschneiden
+        
         uint8_array = uint8_array[:480 * 288]  # kürzt das Array auf die gewünschte Größe
         image = np.reshape(uint8_array, (288, 480)) # ok, die Darstellung ist Böse...
 
