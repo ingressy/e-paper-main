@@ -3,7 +3,7 @@
     {
       "_comment": "json data for the untis wrapper",
       "enabled": "true",
-      "roomsdatabase": "rooms.json"
+      "roomdatabase": "rooms.json"
     }
   ]
 }

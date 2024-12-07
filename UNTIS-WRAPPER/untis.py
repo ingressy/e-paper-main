@@ -66,10 +66,12 @@ def main():
             for i in config_data['config']:
                 if (i['enabled']) == "true":
 
+                    roomdatabase = i['roomdatabase']
+
                     # load a json file with the rooms
                     # use an own file because dev stat ~yeah
                     try:
-                        with open('rooms.json', 'r') as file:
+                        with open(roomdatabase, 'r') as file:
                             data = json.load(file)
 
                             # check if active stat
