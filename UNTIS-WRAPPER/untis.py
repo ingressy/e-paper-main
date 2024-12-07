@@ -1,5 +1,5 @@
 # needs an .env file with the login data
-import datetime, os, webuntis.objects
+import datetime, os, webuntis.objects, json
 from dotenv import load_dotenv
 
 #loading data from the .env
@@ -57,7 +57,38 @@ def untis_get(raum):
         print(f"Daten von Raum {raum} erhalten ...")
 
 def main():
-    pass
+    #loading config file
+    try:
+        with open('../config.json', 'r') as config_file:
+            config_data = json.load(config_file)
 
+            #check a few things and do things
+            for i in config_data['config']:
+                if (i['enabled']) == "true":
+
+                    roomdatabase = i['roomdatabase']
+
+                    # load a json file with the rooms
+                    # use an own file because dev stat ~yeah
+                    try:
+                        with open(roomdatabase, 'r') as file:
+                            data = json.load(file)
+
+                            # check if active stat
+                            for i in data['rooms']:
+                                if (i['enabled'][0]) == "t":
+                                    print(i['roomnumber'])
+                                elif (i['enabled'][0]) == "f":
+                                    print(i['roomnumber'] + " is disabled")
+                                    # do nothing here
+                                else:
+                                    print("ERROR: Reading Room Database! | " + i['roomnumber'])
+                    except FileNotFoundError:
+                        print("File Not Found - Please check the File!")
+                else:
+                    print("untis-wrapper disabled - Please enabled in config.json")
+                    exit(0)
+    except FileNotFoundError:
+        print("File Not Found - Please check the File!")
 if __name__ == "__main__":
     main()
