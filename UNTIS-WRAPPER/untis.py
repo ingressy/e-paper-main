@@ -25,6 +25,7 @@ def untis_get(raum):
         useragent=USRA
     )
     s.login()
+
     if isinstance(s, str):
         print(f"Keine Daten von Raum ",{raum})
     elif isinstance(s, str):
@@ -77,7 +78,7 @@ def main():
                             # check if active stat
                             for i in data['rooms']:
                                 if (i['enabled'][0]) == "t":
-                                    print(i['roomnumber'])
+                                    untis_get(i['roomnumber'])
                                 elif (i['enabled'][0]) == "f":
                                     print(i['roomnumber'] + " is disabled")
                                     # do nothing here
