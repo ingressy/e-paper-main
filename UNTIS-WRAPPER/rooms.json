@@ -1,0 +1,19 @@
+{
+  "rooms": [
+    {
+      "id": "1",
+      "roomnumber": "2.311",
+      "enabled": "true"
+    },
+    {
+      "id": "2",
+      "roomnumber": "2.306",
+      "enabled": "false"
+    },
+    {
+      "id": "3",
+      "roomnumber": "2.106",
+      "enabled": "sdfuhdsfg"
+    }
+  ]
+}

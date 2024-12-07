@@ -1,0 +1,9 @@
+{
+  "config": [
+    {
+      "_comment": "json data for the untis wrapper",
+      "enabled": "true",
+      "roomsdatabase": "rooms.json"
+    }
+  ]
+}
