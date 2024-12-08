@@ -18,11 +18,11 @@ end = start + datetime.timedelta(days=5)
 
 def untis_get(raum):
     s = webuntis.Session(
-        server=SRV,
-        username=USR,
-        password=PWD,
-        school=SHO,
-        useragent=USRA
+        server="https://tipo.webuntis.com",
+        username="dummy2",
+        password="OldPW23$",
+        school="TBZ Mitte Bremen",
+        useragent="dummy2"
     )
     s.login()
 

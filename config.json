@@ -4,6 +4,14 @@
       "_comment": "json data for the untis wrapper",
       "enabled": "true",
       "roomdatabase": "rooms.json"
+    },
+    {
+      "_comment": "login data for untis",
+      "server": "",
+      "username": "",
+      "password": "",
+      "school": "",
+      "useragent": ""
     }
   ]
 }
