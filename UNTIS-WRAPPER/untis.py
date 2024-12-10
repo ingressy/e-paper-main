@@ -1,4 +1,5 @@
 # needs an .env file with the login data
+#by ingressy
 import datetime, webuntis.objects, json
 
 time = datetime.datetime.now()
