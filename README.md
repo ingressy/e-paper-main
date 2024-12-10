@@ -1,2 +1,2 @@
 # e-paper-main
-Mega main für neues EPaper Konzept joa
+Mega main für neues E-Paper Konzept joa
