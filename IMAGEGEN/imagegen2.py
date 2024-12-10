@@ -1,26 +1,35 @@
 from PIL import Image, ImageDraw, ImageFont
-import datetime
+import datetime, json
 
-# Bildparameter
-width, height = 960, 576
-# width, height = 480, 288
-background_color = 255  # Weiß
-
-# Bild erstellen (Graustufenmodus 'L')
-image = Image.new('L', (width, height), color=background_color)
-
-# Objekt zum Zeichnen auf dem Bild erstellen
-draw = ImageDraw.Draw(image)
-
-# Logo laden und positionieren (auf 209x113 Pixel skalieren)
 try:
-    logo = Image.open('TBZ-sb.png').convert('L')  # Logo in Graustufen laden
-    logo = logo.resize((209, 113))  # Logo auf 209x113 Pixel skalieren
-    image.paste(logo, (20, 20))  # Logo in der oberen linken Ecke platzieren
-except FileNotFoundError:
-    print("Logo-Datei 'logo.png' nicht gefunden. Überspringe das Logo.")
+    with open('../config.json', 'r') as config_file:
+        config_data = json.load(config_file)
 
+        # Bildparameter
+        width, height = config_data['config'][2]['width'], config_data['config'][2]['height']
+        # width, height = 480, 288
+        background_color = config_data['config'][2]['background_color']  # Weiß
 
+        # Bild erstellen (Graustufenmodus 'L')
+        image = Image.new('L', (width, height), color=background_color)
+
+        # Objekt zum Zeichnen auf dem Bild erstellen
+        draw = ImageDraw.Draw(image)
+
+        # Logo laden und positionieren (auf 209x113 Pixel skalieren)
+        try:
+            logo = Image.open(config_data['config'][2]['TBZ_Logo_path']).convert('L')  # Logo in Graustufen laden
+            logo = logo.resize((209, 113))  # Logo auf 209x113 Pixel skalieren
+            image.paste(logo, (20, 20))  # Logo in der oberen linken Ecke platzieren
+        except FileNotFoundError:
+            print("Logo-Datei 'logo.png' nicht gefunden. Überspringe das Logo.")
+
+        #Standard-Font in Variable übertragen:
+        Config_Font = config_data['config'][2]['Standard_font']
+        Config_Rect_Color = config_data['config'][2]['Config_rect_color']
+
+except:
+    print("Configfile not found - Please check the File!")
 def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, teach2, sub2, klasse2, abw2, start3, end3,
               teach3, sub3, klasse3, abw3):
     if end1 != "0":
@@ -33,11 +42,12 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         classNumber = 0
     # Schriftart laden (Arial oder Standardschrift)
     try:
-        font_huge = ImageFont.truetype("arial.ttf", 60)  # Riesenschrift
-        font_large = ImageFont.truetype("arial.ttf", 50)  # Große Schrift für Fächer
-        font_medium = ImageFont.truetype("arial.ttf", 35)  # Mittlere Schrift für Klassen und Lehrer
-        font_small = ImageFont.truetype("arial.ttf", 20)  # Kleine Schrift für "generiert um" und Zeiten
+        font_huge = ImageFont.truetype(Config_Font, 60)  # Riesenschrift
+        font_large = ImageFont.truetype(Config_Font, 50)  # Große Schrift für Fächer
+        font_medium = ImageFont.truetype(Config_Font, 35)  # Mittlere Schrift für Klassen und Lehrer
+        font_small = ImageFont.truetype(Config_Font, 20)  # Kleine Schrift für "generiert um" und Zeiten
     except IOError:
+        font_huge = ImageFont.load_default()
         font_large = ImageFont.load_default()
         font_medium = ImageFont.load_default()
         font_small = ImageFont.load_default()
@@ -46,7 +56,8 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         draw.text((140, 240), "Heute kein weiterer Unterricht", font=font_large, fill=0)
         draw.text((270, 320), "in diesem Raum", font=font_large, fill=0)
 
-    Abweichungen = ["", "Ausfall"]
+    # Nur zum Wissen, keine Funktion:
+    Abweichungen = ["Normaler Unterricht, keine Abweichung", "Ausfall"]
 
     # Rechteckparameter
     rect_height = 100
@@ -58,7 +69,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     rect_teachtxt = "0"
     rect_classtxt = "0"
     special = "0"
-    rect_color = 255  # Schwarz
+    rect_color = Config_Rect_Color  # Schwarz
     rect_outline_color = 1  # Weiß
 
     currentClassPrintMax = classNumber
@@ -213,22 +224,22 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     current_time = datetime.datetime.now().strftime("%d.%Y.%m %H:%M")
 
     # Text in der untersten Zeile
-    footer_text = f"generiert um {current_time}"
+    footer_text = f"Generiert um: {current_time}"
     bbox = draw.textbbox((0, 0), footer_text, font=font_small)  # Bounding box des Textes berechnen
     text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text((width - text_width - 20, height - text_height - 20), footer_text, font=font_small,
               fill=0)  # Schwarzer Text
 
     # Bild anzeigen und speichern
-    image.show()
+    #image.show()
     image.save('graustufenbild_demo.png')
 
 
-# gen_image("2.310","0","0","","","","","","","","","","","","","")
+# gen_image("2.310","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0", "0","0","0")
 
 # if __name__ == "__main__":
 #    try:
-#        gen_image("2.311","1","2","SCJ","IFT","BGT241")
+#gen_image("2.311","1","2","SCJ","IFT","BGT241")
 #        gen_image("2.311","1","2","SCJ","IFT","BGT241","3","4","DIB","MAT","BGT221")
 #        gen_image("2.311","1","2","SCJ","IFT","BGT241","3","4","DIB","MAT","BGT221","5","5","BEN","BInf","BGT4711")
 #    except KeyboardInterrupt:

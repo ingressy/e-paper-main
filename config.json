@@ -12,6 +12,15 @@
       "password": "",
       "school": "",
       "useragent": ""
+    },
+    {
+      "_comment": "Config for Image-Gen.py",
+      "width": 960,
+      "height": 576,
+      "background_color": 255,
+      "TBZ_Logo_path": "../SNIPPETS/TBZ-sb.png",
+      "Standard_font": "arial.ttf",
+      "Config_rect_color": 255
     }
   ]
 }
