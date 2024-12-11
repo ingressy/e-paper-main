@@ -27,6 +27,9 @@ try:
         #Standard-Font in Variable übertragen:
         Config_Font = config_data['config'][2]['Standard_font']
         Config_Rect_Color = config_data['config'][2]['Config_rect_color']
+        Config_Rect_Height = config_data['config'][2]['Config_rect_height']
+        Config_Rect_Margin = config_data['config'][2]['Config_rect_margin']
+        Config_Rect_Spacing = config_data['config'][2]['Config_rect_spacing']
 
 except:
     print("Configfile not found - Please check the File!")
@@ -60,10 +63,10 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     Abweichungen = ["Normaler Unterricht, keine Abweichung", "Ausfall"]
 
     # Rechteckparameter
-    rect_height = 100
-    rect_margin_top = 140
-    rect_spacing = 30
-    rect_subtxt = "DEMO"
+    rect_height = Config_Rect_Height
+    rect_margin_top = Config_Rect_Margin
+    rect_spacing = Config_Rect_Spacing
+    rect_subtxt = "ERR 404"
     rect_starttxt = "0"
     rect_endtxt = "0"
     rect_teachtxt = "0"
@@ -235,7 +238,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     image.save('graustufenbild_demo.png')
 
 
-# gen_image("2.310","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0", "0","0","0")
+# gen_image("2.310","1","2","SCJ","BInf","BGT 241","0","0","0","0","0","0","0","0","0","0", "0","0","0")
 
 # if __name__ == "__main__":
 #    try:
