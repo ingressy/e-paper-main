@@ -23,7 +23,8 @@
       "Config_rect_color": 255,
       "Config_rect_height": 100,
       "Config_rect_margin": 140,
-      "Config_rect_spacing": 30
+      "Config_rect_spacing": 30,
+      "Custom_Text": "Dies ist ein Custom Text"
     }
   ]
 }
