@@ -30,6 +30,7 @@ try:
         Config_Rect_Height = config_data['config'][2]['Config_rect_height']
         Config_Rect_Margin = config_data['config'][2]['Config_rect_margin']
         Config_Rect_Spacing = config_data['config'][2]['Config_rect_spacing']
+        Custom_Text = config_data['config'][2]['Custom_Text']
 
 except:
     print("Configfile not found - Please check the File!")
@@ -232,6 +233,11 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text((width - text_width - 20, height - text_height - 20), footer_text, font=font_small,
               fill=0)  # Schwarzer Text
+
+    bbox = draw.textbbox((0,0) , Custom_Text, font=font_small, align="right")
+    text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    draw.text((10, height - text_height - 20), Custom_Text, font=font_small,
+              fill=0, align="right")
 
     # Bild anzeigen und speichern
     #image.show()
