@@ -59,7 +59,7 @@ def untis_get(raum):
 
                     #clear passed school hours
                     if chtime < e:
-                      #  if chtime > s:
+                        if chtime > s:
                             #print(d, s + "-" + e, k, sub, t, r, c)
                             untis2imagegen(raum, k, t, sub, s, e, d, c)
                 print(f"Daten von Raum {raum} erhalten ...")

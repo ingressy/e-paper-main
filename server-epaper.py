@@ -53,8 +53,8 @@ def start_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
         server_socket.bind((HOST, PORT))
         server_socket.listen()  # Warte auf eingehende Verbindungen
-        print(f"Server laeuft und wartet auf Verbindungen auf {HOST}:{PORT}...")
-        logger.info(f"Server laeuft und wartet auf Verbindungen auf {HOST}:{PORT}...")
+        print(f"Server agiert und wartet auf Verbindungen auf {HOST}:{PORT}...")
+        logger.info(f"Server agiert und wartet auf Verbindungen auf {HOST}:{PORT}...")
 
         # Endlosschleife, um mehrere Verbindungen zu ermöglichen
         while True:
