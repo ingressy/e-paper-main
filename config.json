@@ -7,11 +7,11 @@
     },
     {
       "_comment": "login data for untis",
-      "server": "",
-      "username": "",
-      "password": "",
-      "school": "",
-      "useragent": ""
+      "server": "https://tipo.webuntis.com",
+      "username": "dummy3",
+      "password": "NewShit24!",
+      "school": "TBZ Mitte Bremen",
+      "useragent": "dummy3"
     },
     {
       "_comment": "Config for Image-Gen.py",
