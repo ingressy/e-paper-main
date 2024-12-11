@@ -102,46 +102,46 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
             special = abw3
 
         match startRaw:
-            case "1":
+            case "800":
                 rect_starttxt = "8:00 -"
-            case "2":
+            case "855":
                 rect_starttxt = "8:55 -"
-            case "3":
+            case "1000":
                 rect_starttxt = "10:00 -"
-            case "4":
+            case "1045":
                 rect_starttxt = "10:45 -"
-            case "5":
+            case "1145":
                 rect_starttxt = "11:45 -"
-            case "6":
-                rect_starttxt = "12.30 -"
-            case "7":
+            case "1230":
+                rect_starttxt = "12:30 -"
+            case "1345":
                 rect_starttxt = "13:45 -"
-            case "8":
+            case "1430":
                 rect_starttxt = "14:30 -"
-            case "9":
+            case "1530":
                 rect_starttxt = "15:30 -"
-            case "10":
+            case "1615":
                 rect_starttxt = "16:15 -"
         match endRaw:
-            case "1":
+            case "855":
                 rect_endtxt = "8:55"
-            case "2":
+            case "940":
                 rect_endtxt = "9:40"
-            case "3":
+            case "1045":
                 rect_endtxt = "10:45"
-            case "4":
+            case "1130":
                 rect_endtxt = "11:30"
-            case "5":
+            case "1230":
                 rect_endtxt = "12:30"
-            case "6":
+            case "1315":
                 rect_endtxt = "13:15"
-            case "7":
+            case "1430":
                 rect_endtxt = "14:30"
-            case "8":
+            case "1515":
                 rect_endtxt = "15:15"
-            case "9":
+            case "1615":
                 rect_endtxt = "16:15"
-            case "10":
+            case "1700":
                 rect_endtxt = "17:00"
 
         rect_top = rect_margin_top + i * (rect_height + rect_spacing)
@@ -224,10 +224,10 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     draw.text((text_x, text_y), center_text, font=font_medium, fill=0)  # Text in Schwarz (0)
 
     # Aktuelle Zeit für den unteren Text
-    current_time = datetime.datetime.now().strftime("%d.%Y.%m %H:%M")
+    current_time = datetime.datetime.now().strftime("%d.%m.%Y %H:%M Uhr")
 
     # Text in der untersten Zeile
-    footer_text = f"Generiert um: {current_time}"
+    footer_text = f"Generiert: {current_time}"
     bbox = draw.textbbox((0, 0), footer_text, font=font_small)  # Bounding box des Textes berechnen
     text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text((width - text_width - 20, height - text_height - 20), footer_text, font=font_small,

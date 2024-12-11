@@ -1,19 +1,24 @@
-# needs an .env file with the login data
+# needs a filled config.json file with the login data
+# you find the file in the main folder of the server project
 #by ingressy
 
 import datetime, webuntis.objects, json
+from untis2imagegen import untis2imagegen
 
+#time things idk
 time = datetime.datetime.now()
 chtime = (time.strftime("%H%M"))
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
-end = start + datetime.timedelta(days=5)
+end = start + datetime.timedelta(days=0)
 
 def untis_get(raum):
+    #try to open the config json file
     try:
         with open('../config.json', 'r') as config_file:
             config_data = json.load(config_file)
 
+            #login by the untis api
             s = webuntis.Session(
                 server=config_data['config'][1]['server'],
                 username=config_data['config'][1]['username'],
@@ -24,9 +29,7 @@ def untis_get(raum):
             s.login()
 
             if isinstance(s, str):
-                print(f"Keine Daten von Raum ", {raum})
-            elif isinstance(s, str):
-                print(f"Fehlerhafte Daten von Raum", {raum})
+                print(f"Fehlerhafte Daten von Raum ", {raum})
             else:
                 rooms = s.rooms().filter(name=raum)
 
@@ -37,21 +40,28 @@ def untis_get(raum):
                 time_format_start = time_format_end
                 time_format_date = "%Y-%m-%d"
 
+                #printed the timetable of a room
                 for po in tt:
                     d = po.start.strftime(time_format_date)
                     s = po.start.strftime(time_format_start)
                     e = po.end.strftime(time_format_end)
                     k = " ".join([k.name for k in po.klassen])
+
+                    #fixed error | blank teacher field
                     try:
-                        t = " ".join([t.full_name for t in po.teachers])
+                        t = " ".join([t.name for t in po.teachers])
                     except IndexError:
                         print(f"Fehler bei einem Eintrag einer Lehrkraft von Raum {raum}")
+
                     r = " ".join([r.name for r in po.rooms])
-                    sub = " ".join([r.long_name for r in po.subjects])
+                    sub = " ".join([r.name for r in po.subjects])
                     c = "(" + po.code + ")" if po.code is not None else ""
 
+                    #clear passed school hours
                     if chtime < e:
-                        print(d, s + "-" + e, k, sub, t, r, c)
+                        if chtime > s:
+                            #print(d, s + "-" + e, k, sub, t, r, c)
+                            untis2imagegen(raum, k, t, sub, s, e, d, c)
                 print(f"Daten von Raum {raum} erhalten ...")
 
     except FileNotFoundError:
@@ -66,6 +76,7 @@ def main():
             #check a few things and do things
             if (config_data['config'][0]['enabled']) == "true":
 
+                #var for the roomdatabase file e.g. roomdatabase.json
                 roomdatabase = config_data['config'][0]['roomdatabase']
 
                 # load a json file with the rooms
@@ -77,6 +88,7 @@ def main():
                         # check if active stat
                         for i in data['rooms']:
                             if (i['enabled'][0]) == "t":
+                                #call the untis_get function with the room number from the roomdatabase file
                                 untis_get(i['roomnumber'])
                             elif (i['enabled'][0]) == "f":
                                 print(i['roomnumber'] + " is disabled")
