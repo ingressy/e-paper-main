@@ -35,7 +35,7 @@ try:
 except:
     print("Configfile not found - Please check the File!")
 def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, teach2, sub2, klasse2, abw2, start3, end3,
-              teach3, sub3, klasse3, abw3):
+              teach3, sub3, klasse3, abw3,display_Bottom):
     if end1 != "0":
         classNumber = 1
         if end2 != "0":
@@ -234,9 +234,13 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     draw.text((width - text_width - 20, height - text_height - 20), footer_text, font=font_small,
               fill=0)  # Schwarzer Text
 
+    if display_Bottom == "0":
+        Custom_Msg = Custom_Text
+    else:
+        Custom_Msg = display_Bottom
     bbox = draw.textbbox((0,0) , Custom_Text, font=font_small, align="right")
     text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
-    draw.text((10, height - text_height - 20), Custom_Text, font=font_small,
+    draw.text((10, height - text_height - 20), Custom_Msg, font=font_small,
               fill=0, align="right")
 
     # Bild anzeigen und speichern
