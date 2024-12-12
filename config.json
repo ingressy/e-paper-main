@@ -2,11 +2,12 @@
   "config": [
     {
       "_comment": "json data for the untis wrapper",
-      "enabled": "true",
+      "enabled": "false",
       "roomdatabase": "rooms.json"
     },
     {
       "_comment": "login data for untis",
+      "use_env": "false",
       "server": "",
       "username": "",
       "password": "",
