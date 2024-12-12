@@ -11,17 +11,11 @@ try:
         # width, height = 480, 288
         background_color = config_data['config'][2]['background_color']  # Weiß
 
-        # Bild erstellen (Graustufenmodus 'L')
-        image = Image.new('L', (width, height), color=background_color)
-
-        # Objekt zum Zeichnen auf dem Bild erstellen
-        draw = ImageDraw.Draw(image)
 
         # Logo laden und positionieren (auf 209x113 Pixel skalieren)
         try:
             logo = Image.open(config_data['config'][2]['TBZ_Logo_path']).convert('L')  # Logo in Graustufen laden
             logo = logo.resize((209, 113))  # Logo auf 209x113 Pixel skalieren
-            image.paste(logo, (20, 20))  # Logo in der oberen linken Ecke platzieren
         except FileNotFoundError:
             print("Logo-Datei 'logo.png' nicht gefunden. Überspringe das Logo.")
 
@@ -43,6 +37,12 @@ except:
 # Die Hauptfunktion:
 def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, teach2, sub2, klasse2, abw2, start3, end3,
               teach3, sub3, klasse3, abw3,display_Bottom):
+    # Bild erstellen (Graustufenmodus 'L')
+    image = Image.new('L', (width, height), color=background_color)
+
+    # Objekt zum Zeichnen auf dem Bild erstellen
+    draw = ImageDraw.Draw(image)
+    image.paste(logo, (20, 20))  # Logo in der oberen linken Ecke platzieren
     # Herausfinden, wie viele Stunden noch angezeigt werden müssen:
     if end1 != "0":
         classNumber = 1
