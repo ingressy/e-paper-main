@@ -40,8 +40,11 @@ def untis_get(raum):
                 time_format_start = time_format_end
                 time_format_date = "%Y-%m-%d"
 
+                #create a list for cache things
+                cache = []
+
                 #printed the timetable of a room
-                for po in tt:
+                for po in tt: #d = date; s = start time; e = end time; k = class; t = teacher; r = room; sub = subject; c = cancelled
                     d = po.start.strftime(time_format_date)
                     s = po.start.strftime(time_format_start)
                     e = po.end.strftime(time_format_end)
@@ -59,9 +62,19 @@ def untis_get(raum):
 
                     #clear passed school hours
                     if chtime < e:
-                        if chtime > s:
-                            #print(d, s + "-" + e, k, sub, t, r, c)
-                            untis2imagegen(raum, k, t, sub, s, e, d, c)
+                        #print(d, s + "-" + e, k, sub, t, r, c)
+
+                        #add things to the list
+                        cache.append(s)
+                        cache.append(e)
+                        cache.append(k)
+                        cache.append(sub)
+                        cache.append(t)
+
+                        print(cache)
+
+                        #call the untis2imagegen.py file
+                        #untis2imagegen(raum, k, t, sub, s, e, d, c)
                 print(f"Daten von Raum {raum} erhalten ...")
 
     except FileNotFoundError:

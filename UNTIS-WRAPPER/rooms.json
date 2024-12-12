@@ -3,7 +3,7 @@
     {
       "id": "1",
       "roomnumber": "2.311",
-      "enabled": "true"
+      "enabled": "false"
     },
     {
       "id": "2",
@@ -13,7 +13,7 @@
     {
       "id": "3",
       "roomnumber": "2.312",
-      "enabled": "false"
+      "enabled": "true"
     }
   ]
 }
