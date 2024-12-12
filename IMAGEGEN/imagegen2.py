@@ -30,7 +30,7 @@ try:
         Config_Rect_Height = config_data['config'][2]['Config_rect_height']
         Config_Rect_Margin = config_data['config'][2]['Config_rect_margin']
         Config_Rect_Spacing = config_data['config'][2]['Config_rect_spacing']
-        Custom_Text = config_data['config'][2]['Custom_Text']
+        Custom_Config_Text = config_data['config'][2]['Custom_Text']
 
 except:
     print("Configfile not found - Please check the File!")
@@ -235,7 +235,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
               fill=0)  # Schwarzer Text
 
     if display_Bottom == "0":
-        Custom_Msg = Custom_Text
+        Custom_Msg = Custom_Config_Text
     else:
         Custom_Msg = display_Bottom
     bbox = draw.textbbox((0,0) , Custom_Text, font=font_small, align="right")
