@@ -2,7 +2,7 @@
 # you find the file in the main folder of the server project
 #by ingressy
 
-import datetime, webuntis.objects, json
+import datetime, webuntis.objects, json, logging
 from untis2imagegen import untis2imagegen
 
 #time things idk
@@ -71,16 +71,25 @@ def untis_get(raum):
                         cache.append(sub)
                         cache.append(t)
 
-                        print(cache)
+                        #print(cache)
 
                         #call the untis2imagegen.py file
                         #untis2imagegen(raum, k, t, sub, s, e, d, c)
-                print(f"Daten von Raum {raum} erhalten ...")
+                logger.info(f"Daten von Raum {raum} erhalten ...")
 
     except FileNotFoundError:
+        logger.error("Configfile Not Found - Please check the File!")
         print("Configfile Not Found - Please check the File!")
 
 def main():
+    # add a log file
+
+    global logger
+
+    logger = logging.getLogger(__name__)
+    logging.basicConfig(filename=f'log/{chtime}-{chdate}.log', encoding='utf-8', level=logging.INFO)
+    logger.info("untis.py script started")
+
     #loading config file
     try:
         with open('../config.json', 'r') as config_file:
@@ -102,18 +111,20 @@ def main():
                         for i in data['rooms']:
                             if (i['enabled'][0]) == "t":
                                 #call the untis_get function with the room number from the roomdatabase file
+                                logger.info("Pull timetable for Room: " + i['roomnumber'])
                                 untis_get(i['roomnumber'])
                             elif (i['enabled'][0]) == "f":
-                                print(i['roomnumber'] + " is disabled")
+                                logger.warning("Room  " + i['roomnumber'] + " is disabled")
                                 # do nothing here
                             else:
-                                print("ERROR: Reading Room Database! | " + i['roomnumber'])
+                                logger.error("Reading Room Database! | " + i['roomnumber'])
                 except FileNotFoundError:
-                    print("File Not Found - Please check the File!")
+                    logger.error("File Not Found - Please check the File!")
             else:
-                print("untis-wrapper disabled - Please enabled in config.json")
+                logger.warning("untis-wrapper disabled - Please enabled in config.json")
                 exit(0)
     except FileNotFoundError:
+        logger.error("Configfile Not Found - Please check the File!")
         print("Configfile Not Found - Please check the File!")
 if __name__ == "__main__":
     main()
