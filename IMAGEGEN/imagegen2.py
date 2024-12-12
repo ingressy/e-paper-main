@@ -1,7 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import datetime, json
 
-# Alle möglichen Stadard-Variablen aus dem Config abrufen...
 try:
     with open('../config.json', 'r') as config_file:
         config_data = json.load(config_file)
@@ -25,25 +24,18 @@ try:
         except FileNotFoundError:
             print("Logo-Datei 'logo.png' nicht gefunden. Überspringe das Logo.")
 
-        # Standard-Font in Variable übertragen:
+        #Standard-Font in Variable übertragen:
         Config_Font = config_data['config'][2]['Standard_font']
-
-        # Formatierungen der Rects anpassbar machen
         Config_Rect_Color = config_data['config'][2]['Config_rect_color']
         Config_Rect_Height = config_data['config'][2]['Config_rect_height']
         Config_Rect_Margin = config_data['config'][2]['Config_rect_margin']
         Config_Rect_Spacing = config_data['config'][2]['Config_rect_spacing']
-
-        # Standardmäßiger Text für unten rechts
-        Custom_Text = config_data['config'][2]['Custom_Text']
+        Custom_Config_Text = config_data['config'][2]['Custom_Text']
 
 except:
     print("Configfile not found - Please check the File!")
-
-# Hauptfunktion
 def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, teach2, sub2, klasse2, abw2, start3, end3,
               teach3, sub3, klasse3, abw3,display_Bottom):
-    # Überprüfen, wie viele Stunden angezeigt werden sollen (Wie viele rects)
     if end1 != "0":
         classNumber = 1
         if end2 != "0":
@@ -52,8 +44,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
                 classNumber = 3
     elif end1 == "0":
         classNumber = 0
-
-    # Schriftart laden (Config oder Standardschrift)
+    # Schriftart laden (Arial oder Standardschrift)
     try:
         font_huge = ImageFont.truetype(Config_Font, 60)  # Riesenschrift
         font_large = ImageFont.truetype(Config_Font, 50)  # Große Schrift für Fächer
@@ -65,15 +56,14 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         font_medium = ImageFont.load_default()
         font_small = ImageFont.load_default()
 
-    # Falls es keinen weiteren Unterricht an dem Tag gibt:
     if classNumber == 0:
         draw.text((140, 240), "Heute kein weiterer Unterricht", font=font_large, fill=0)
         draw.text((270, 320), "in diesem Raum", font=font_large, fill=0)
 
     # Nur zum Wissen, keine Funktion:
-    # Abweichungen = ["Normaler Unterricht, keine Abweichung", "Ausfall", "Vertretung", "Raumwechsel","Vertretung und Raumwechsel"]
+    Abweichungen = ["Normaler Unterricht, keine Abweichung", "Ausfall"]
 
-    # Rechteckparameter (Teilweise aus Config)
+    # Rechteckparameter
     rect_height = Config_Rect_Height
     rect_margin_top = Config_Rect_Margin
     rect_spacing = Config_Rect_Spacing
@@ -82,16 +72,12 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     rect_endtxt = "0"
     rect_teachtxt = "0"
     rect_classtxt = "0"
-
-    # Allgemeine Abweichungsvariable, wird in jedem durchgang für jede anzuzeigende Stunde angepasst
     special = "0"
     rect_color = Config_Rect_Color  # Schwarz
     rect_outline_color = 1  # Weiß
 
-    # Anzahl an zu "druckenden" Stunden in die For-Schleife legen und vorbereiten
     currentClassPrintMax = classNumber
     currentClassPrint = 1
-
     # Rechtecke zeichnen
     for i in range(classNumber):
         if currentClassPrint == 1:
@@ -137,7 +123,6 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
                 rect_starttxt = "15:30 -"
             case "1615":
                 rect_starttxt = "16:15 -"
-
         match endRaw:
             case "0855":
                 rect_endtxt = "08:55"
@@ -160,7 +145,6 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
             case "1700":
                 rect_endtxt = "17:00"
 
-        # Stundenrechteck vorzeichenen
         rect_top = rect_margin_top + i * (rect_height + rect_spacing)
         rect_bottom = rect_top + rect_height
         draw.rectangle([20, rect_top, width - 20, rect_bottom], fill=rect_color, outline=rect_outline_color, width=5)
@@ -209,7 +193,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
             line_y = text_y + text_height // 1.5
             draw.line((text_x, line_y, text_x + text_width, line_y), fill="black", width=3)
 
-        # Raum einfügen bei special == 3 or 4
+        # Raum einfügen bei special == "3" or 4
         if special == 3 or special == 4:
             bbox = draw.textbbox((0, 0), room, font=font_medium)
             text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
@@ -219,10 +203,8 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
             line_y = text_y + text_height // 1.5
             draw.line((text_x, line_y, text_x + text_width, line_y), fill="black", width=3)
 
-        # Überprüfen, um noch eine Stunde gezeichnet werden muss
         if currentClassPrint != currentClassPrintMax:
             currentClassPrint = currentClassPrint + 1
-
 
     # Mittigen Text Raum und Tag in der ersten Zeile neben dem Logo platzieren
     currentDayNum = datetime.datetime.today().weekday()
@@ -252,12 +234,10 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     draw.text((width - text_width - 20, height - text_height - 20), footer_text, font=font_small,
               fill=0)  # Schwarzer Text
 
-    # Herausfinden, ob Config-Standard oder besondere Angabe unten links angezeigt werden soll
     if display_Bottom == "0":
-        Custom_Msg = Custom_Text
+        Custom_Msg = Custom_Config_Text
     else:
         Custom_Msg = display_Bottom
-    # Custom Text unten links einfügen
     bbox = draw.textbbox((0,0) , Custom_Text, font=font_small, align="right")
     text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text((10, height - text_height - 20), Custom_Msg, font=font_small,
@@ -265,12 +245,8 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
 
     # Bild anzeigen und speichern
     #image.show()
-
-    # Bild als normal speichern (Nur für Wartung)
     image.save('graustufenbild_demo.png')
 
-    #Bild als Raumnummer fertig speichern, Dateiformatangabe noch nicht richtig! Weiter herumprobieren.
-    # image.save((f"../ROOMIMAGES/{room}"),'png')
 
 # gen_image("2.310","1","2","SCJ","BInf","BGT 241","0","0","0","0","0","0","0","0","0","0", "0","0","0")
 
