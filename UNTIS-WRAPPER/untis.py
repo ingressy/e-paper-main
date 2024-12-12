@@ -76,29 +76,49 @@ def untis_get(raum):
                         #print(cache)
 
                 #call the untis2imagegen.py file
-                #print(starttime2)
-
                 # var array
                 # first hour
-                starttime1 = cache[0]
-                endtime1 = cache[1]
-                klasse1 = cache[2]
-                subject1 = cache[3]
-                teacher1 = cache[4]
+                try:
+                    starttime1 = cache[0]
+                    endtime1 = cache[1]
+                    klasse1 = cache[2]
+                    subject1 = cache[3]
+                    teacher1 = cache[4]
 
-                # secound hour
-                starttime2 = cache[5]
-                endtime2 = cache[6]
-                klasse2 = cache[7]
-                subject2 = cache[8]
-                teacher2 = cache[9]
+                    # secound hour
+                    starttime2 = cache[5]
+                    endtime2 = cache[6]
+                    klasse2 = cache[7]
+                    subject2 = cache[8]
+                    teacher2 = cache[9]
 
-                #3 hour
-                starttime3 = cache[10]
-                endtime3 = cache[11]
-                klasse3 = cache[12]
-                subject3 = cache[13]
-                teacher3 = cache[14]
+                    #third hour
+                    starttime3 = cache[10]
+                    endtime3 = cache[11]
+                    klasse3 = cache[12]
+                    subject3 = cache[13]
+                    teacher3 = cache[14]
+
+                except:
+                    starttime1 = "0"
+                    starttime2 = "0"
+                    starttime3 = "0"
+
+                    endtime1 = "0"
+                    endtime2 = "0"
+                    endtime3 = "0"
+
+                    klasse1 = "0"
+                    klasse2 = "0"
+                    klasse3 = "0"
+
+                    subject1 = "0"
+                    subject2 = "0"
+                    subject3 = "0"
+
+                    teacher1 = "0"
+                    teacher2 = "0"
+                    teacher3 = "0"
 
                 untis2imagegen(raum, klasse1, teacher1, subject1, starttime1, endtime1, c, klasse2, teacher2, subject2, starttime2, endtime2, klasse3, teacher3, subject3, starttime3, endtime3)
                 logger.info(f"Daten von Raum {raum} erhalten ...")
