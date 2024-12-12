@@ -2,14 +2,15 @@
 # you find the file in the main folder of the server project
 #by ingressy
 
-import datetime, webuntis.objects, json, logging, os
+import datetime, webuntis.objects, json, logging, os, random
 from untis2imagegen import untis2imagegen
 from dotenv import load_dotenv
 
 
 #time things IDK
 time = datetime.datetime.now()
-chtime = (time.strftime("%H%M"))
+#chtime = (time.strftime("%H%M"))
+chtime = "1007"
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
 end = start + datetime.timedelta(days=1)
@@ -99,11 +100,18 @@ def untis_get(raum):
                     subject3 = cache[13]
                     teacher3 = cache[14]
 
+                    #check if the display first hour is double hour
+                    if cache[2] == cache[7]: #class first hour = class second hour
+                        if cache[3] == cache[8]: #subject first = subject second
+                            subject1 = cache[3] #subject 1 = subject 1
+                            teacher1 = cache[4] #teacher 1 = teacher 1
+                            klasse1 = cache[2] #klasse1 = klasse 1
+                            endtime1 = cache[6] #endtime = enddate2
+
                 except:
                     starttime1 = "0"
                     starttime2 = "0"
                     starttime3 = "0"
-
                     endtime1 = "0"
                     endtime2 = "0"
                     endtime3 = "0"
@@ -124,8 +132,27 @@ def untis_get(raum):
                 logger.info(f"Daten von Raum {raum} erhalten ...")
 
     except FileNotFoundError:
-        logger.error("Configfile Not Found - Please check the File!")
-        print("Configfile Not Found - Please check the File!")
+        c_config_file()
+
+def c_config_file():
+    # create config.json
+    try:
+        logger.error("Configfile created!")
+        print("Configfile created!")
+
+        config_file = {"config": [
+            {"_comment": "json data for the untis wrapper", "enabled": "false", "roomdatabase": "rooms.json"},
+            {"_comment": "login data for untis", "use_env": "false", "server": "", "username": "", "password": "",
+             "school": "", "useragent": ""},
+            {"_comment": "Config for Image-Gen.py", "width": 960, "height": 576, "background_color": 255,
+             "TBZ_Logo_path": "../SNIPPETS/TBZ-sb.png", "Standard_font": "../IMAGEGEN/Arial.TTF",
+             "Config_rect_color": 255, "Config_rect_height": 100, "Config_rect_margin": 140, "Config_rect_spacing": 30,
+             "Custom_Text": "~UwU"}]}
+        with open('../config.json', 'w') as file:
+            json.dump(config_file, file, indent=4)
+    except:
+        logger.error("File creation not possible")
+        print("File creation not possible")
 
 def main():
     #check if log folder exist
@@ -150,7 +177,7 @@ def main():
                     #write the login data intro the .env file
                     env = open(".env", "w")
                     env.write(f"SERVER={config_data['config'][1]['server']}\n")
-                    env.write(f"USER={config_data['config'][1]['username']}\n")
+                    env.write(f"NAME={config_data['config'][1]['username']}\n")
                     env.write(f"PASSWORD={config_data['config'][1]['password']}\n")
                     env.write(f"SCHOOL={config_data['config'][1]['school']}\n")
                     env.write(f"USERAGENT={config_data['config'][1]['useragent']}")
@@ -175,16 +202,34 @@ def main():
 
                     main()
                 else:
-                    #load env file
-
                     global SERVER, USERNAME, PASSWORD, SCHOOL, USERAGENT
 
+                    # load env file
                     load_dotenv()
                     SERVER = os.getenv('SERVER')
                     USERNAME = os.getenv('NAME')
                     PASSWORD = os.getenv('PASSWORD')
                     SCHOOL = os.getenv('SCHOOL')
                     USERAGENT = os.getenv('USERAGENT')
+                    
+                    #Easter Egg change the font ~ 1/100 probability
+                    ran = random.randint(0, 100)
+                    if ran == "69":
+                        with open('../config.json', 'r') as config_file:
+                            config_data = json.load(config_file)
+                            for config in config_data["config"]:
+                                if "Standard_font" in config:
+                                    config["Standard_font"] = "../IMAGEGEN/DrolleSchriftart.ttf"
+                        with open('../config.json', 'w') as file:
+                            json.dump(config_data, file, indent=4)
+                    else:
+                        with open('../config.json', 'r') as config_file:
+                            config_data = json.load(config_file)
+                            for config in config_data["config"]:
+                                if "Standard_font" in config:
+                                    config["Standard_font"] = "../IMAGEGEN/Arial.TTF"
+                        with open('../config.json', 'w') as file:
+                            json.dump(config_data, file, indent=4)
 
                 #var for the roomdatabase file e.g. roomdatabase.json
                 roomdatabase = config_data['config'][0]['roomdatabase']
@@ -195,7 +240,7 @@ def main():
                     with open(roomdatabase, 'r') as file:
                         data = json.load(file)
 
-                        # check if active stat
+                        # check if active state
                         for i in data['rooms']:
                             if (i['enabled'][0]) == "t":
                                 #call the untis_get function with the room number from the roomdatabase file
@@ -212,7 +257,6 @@ def main():
                 logger.warning("untis-wrapper disabled - Please enabled in config.json")
                 exit(0)
     except FileNotFoundError:
-        logger.error("Configfile Not Found - Please check the File!")
-        print("Configfile Not Found - Please check the File!")
+        c_config_file()
 if __name__ == "__main__":
     main()

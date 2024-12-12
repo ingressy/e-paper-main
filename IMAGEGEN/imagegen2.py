@@ -1,6 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
 import datetime, json
-
 # Configdaten importieren und auf Grundvariablen anwenden:
 try:
     with open('../config.json', 'r') as config_file:
