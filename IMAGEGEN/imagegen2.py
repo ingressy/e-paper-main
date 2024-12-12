@@ -103,10 +103,10 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
             special = abw3
 
         match startRaw:
-            case "800":
-                rect_starttxt = "8:00 -"
-            case "855":
-                rect_starttxt = "8:55 -"
+            case "0810":
+                rect_starttxt = "08:10 -"
+            case "0855":
+                rect_starttxt = "08:55 -"
             case "1000":
                 rect_starttxt = "10:00 -"
             case "1045":
@@ -124,10 +124,10 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
             case "1615":
                 rect_starttxt = "16:15 -"
         match endRaw:
-            case "855":
-                rect_endtxt = "8:55"
-            case "940":
-                rect_endtxt = "9:40"
+            case "0855":
+                rect_endtxt = "08:55"
+            case "0940":
+                rect_endtxt = "09:40"
             case "1045":
                 rect_endtxt = "10:45"
             case "1130":
@@ -156,7 +156,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         text_x = (width - text_width) // 2
         text_y = rect_top + (rect_height - text_height) // 2
         draw.text((text_x, text_y), rect_subtxt, font=font_large, fill=0)  # Text in Schwarz (0)
-        if special == "1":
+        if special == 1:
             line_y = text_y + text_height // 1.5
             draw.line((text_x, line_y, text_x + text_width, line_y), fill="black", width=5)
 
@@ -179,7 +179,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         text_x = (width - text_width + 500) // 2
         text_y = rect_top + (rect_height - text_height) // 2
         draw.text((text_x, text_y), rect_teachtxt, font=font_medium, fill=0)
-        if special == "1" or special == "2" or special == "4":
+        if special == 1 or special == 2 or special == 4:
             line_y = text_y + text_height // 1.5
             draw.line((text_x, line_y, text_x + text_width, line_y), fill="black", width=3)
 
@@ -189,12 +189,12 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         text_x = (width - text_width - 450) // 2
         text_y = rect_top + (rect_height - text_height) // 2
         draw.text((text_x, text_y), rect_classtxt, font=font_medium, fill=0)
-        if special == "1":
+        if special == 1:
             line_y = text_y + text_height // 1.5
             draw.line((text_x, line_y, text_x + text_width, line_y), fill="black", width=3)
 
         # Raum einfügen bei special == "3" or 4
-        if special == "3" or special == "4":
+        if special == 3 or special == 4:
             bbox = draw.textbbox((0, 0), room, font=font_medium)
             text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
             text_x = (width - text_width + 750) // 2
