@@ -2,15 +2,17 @@
 # you find the file in the main folder of the server project
 #by ingressy
 
-import datetime, webuntis.objects, json, logging
+import datetime, webuntis.objects, json, logging, os
 from untis2imagegen import untis2imagegen
+from dotenv import load_dotenv
 
-#time things idk
+
+#time things IDK
 time = datetime.datetime.now()
 chtime = (time.strftime("%H%M"))
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
-end = start + datetime.timedelta(days=0)
+end = start + datetime.timedelta(days=1)
 
 def untis_get(raum):
     #try to open the config json file
@@ -20,11 +22,11 @@ def untis_get(raum):
 
             #login by the untis api
             s = webuntis.Session(
-                server=config_data['config'][1]['server'],
-                username=config_data['config'][1]['username'],
-                password=config_data['config'][1]['password'],
-                school=config_data['config'][1]['school'],
-                useragent=config_data['config'][1]['useragent']
+                server=SERVER,
+                username=USERNAME,
+                password=PASSWORD,
+                school=SCHOOL,
+                useragent=USERAGENT
             )
             s.login()
 
@@ -106,10 +108,12 @@ def untis_get(raum):
         print("Configfile Not Found - Please check the File!")
 
 def main():
+    #check if log folder exist
+    if not os.path.exists("log"):
+        os.makedirs("log")
+
     # add a log file
-
     global logger
-
     logger = logging.getLogger(__name__)
     logging.basicConfig(filename=f'log/{chtime}-{chdate}.log', encoding='utf-8', level=logging.INFO)
     logger.info("untis.py script started")
@@ -121,12 +125,52 @@ def main():
 
             #check a few things and do things
             if (config_data['config'][0]['enabled']) == "true":
+                #check the location of the login data
+                if config_data['config'][1]['use_env'] == "false":
+                    #write the login data intro the .env file
+                    env = open(".env", "w")
+                    env.write(f"SERVER={config_data['config'][1]['server']}\n")
+                    env.write(f"USERNAME={config_data['config'][1]['username']}\n")
+                    env.write(f"PASSWORD={config_data['config'][1]['password']}\n")
+                    env.write(f"SCHOOL={config_data['config'][1]['school']}\n")
+                    env.write(f"USERAGENT={config_data['config'][1]['useragent']}")
+
+                    #delete login data in config.json
+                    for config in config_data["config"]:
+                        if "server" in config:
+                            config["server"] = None
+                        if "username" in config:
+                            config["username"] = None
+                        if "password" in config:
+                            config["password"] = None
+                        if "school" in config:
+                            config["school"] = None
+                        if "useragent" in config:
+                            config["useragent"] = None
+                        if "use_env" in config:
+                            config["use_env"] = "true"
+
+                    with open('../config.json', 'w') as file:
+                        json.dump(config_data, file, indent=4)
+
+                    main()
+                else:
+                    #load env file
+
+                    global SERVER, USERNAME, PASSWORD, SCHOOL, USERAGENT
+
+                    load_dotenv()
+                    SERVER = os.getenv('SERVER')
+                    USERNAME = os.getenv('USERNAME')
+                    PASSWORD = os.getenv('PASSWORD')
+                    SCHOOL = os.getenv('SCHOOL')
+                    USERAGENT = os.getenv('USERAGENT')
 
                 #var for the roomdatabase file e.g. roomdatabase.json
                 roomdatabase = config_data['config'][0]['roomdatabase']
 
                 # load a json file with the rooms
-                # use an own file because dev stat ~yeah
+                # use an own file because dev state ~yeah
                 try:
                     with open(roomdatabase, 'r') as file:
                         data = json.load(file)

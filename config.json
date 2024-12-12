@@ -1,31 +1,31 @@
 {
-  "config": [
-    {
-      "_comment": "json data for the untis wrapper",
-      "enabled": "false",
-      "roomdatabase": "rooms.json"
-    },
-    {
-      "_comment": "login data for untis",
-      "use_env": "false",
-      "server": "",
-      "username": "",
-      "password": "",
-      "school": "",
-      "useragent": ""
-    },
-    {
-      "_comment": "Config for Image-Gen.py",
-      "width": 960,
-      "height": 576,
-      "background_color": 255,
-      "TBZ_Logo_path": "../SNIPPETS/TBZ-sb.png",
-      "Standard_font": "arial.ttf",
-      "Config_rect_color": 255,
-      "Config_rect_height": 100,
-      "Config_rect_margin": 140,
-      "Config_rect_spacing": 30,
-      "Custom_Text": "Dies ist ein Custom Text"
-    }
-  ]
+    "config": [
+        {
+            "_comment": "json data for the untis wrapper",
+            "enabled": "true",
+            "roomdatabase": "rooms.json"
+        },
+        {
+            "_comment": "login data for untis",
+            "use_env": "true",
+            "server": null,
+            "username": null,
+            "password": null,
+            "school": null,
+            "useragent": null
+        },
+        {
+            "_comment": "Config for Image-Gen.py",
+            "width": 960,
+            "height": 576,
+            "background_color": 255,
+            "TBZ_Logo_path": "../SNIPPETS/TBZ-sb.png",
+            "Standard_font": "arial.ttf",
+            "Config_rect_color": 255,
+            "Config_rect_height": 100,
+            "Config_rect_margin": 140,
+            "Config_rect_spacing": 30,
+            "Custom_Text": "Dies ist ein Custom Text"
+        }
+    ]
 }
