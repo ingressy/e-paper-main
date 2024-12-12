@@ -20,7 +20,7 @@ def untis_get(raum):
         with open('../config.json', 'r') as config_file:
             config_data = json.load(config_file)
 
-            #login by the untis api
+            # login by the untis api
             s = webuntis.Session(
                 server=SERVER,
                 username=USERNAME,
