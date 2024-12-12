@@ -15,7 +15,7 @@ except FileNotFoundError:
 
 def warnBats():
     # Für jeden Raum den Batteriestand abfragen:
-    with open((f"../UNTIS-WRAPPER/{roomdatabase}"), 'r') as file:
+    with open(f"../UNTIS-WRAPPER/{roomdatabase}", 'r') as file:
         data = json.load(file)
 
         for i in data['rooms']:
