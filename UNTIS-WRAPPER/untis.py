@@ -150,7 +150,7 @@ def main():
                     #write the login data intro the .env file
                     env = open(".env", "w")
                     env.write(f"SERVER={config_data['config'][1]['server']}\n")
-                    env.write(f"USERNAME={config_data['config'][1]['username']}\n")
+                    env.write(f"USER={config_data['config'][1]['username']}\n")
                     env.write(f"PASSWORD={config_data['config'][1]['password']}\n")
                     env.write(f"SCHOOL={config_data['config'][1]['school']}\n")
                     env.write(f"USERAGENT={config_data['config'][1]['useragent']}")
@@ -181,7 +181,7 @@ def main():
 
                     load_dotenv()
                     SERVER = os.getenv('SERVER')
-                    USERNAME = os.getenv('USERNAME')
+                    USERNAME = os.getenv('NAME')
                     PASSWORD = os.getenv('PASSWORD')
                     SCHOOL = os.getenv('SCHOOL')
                     USERAGENT = os.getenv('USERAGENT')
