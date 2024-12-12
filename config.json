@@ -20,7 +20,7 @@
             "height": 576,
             "background_color": 255,
             "TBZ_Logo_path": "../SNIPPETS/TBZ-sb.png",
-            "Standard_font": "arial.ttf",
+            "Standard_font": "../IMAGEGEN/Arial.TTF",
             "Config_rect_color": 255,
             "Config_rect_height": 100,
             "Config_rect_margin": 140,
