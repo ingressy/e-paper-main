@@ -1,0 +1,5 @@
+INFO:__main__:untis.py script started
+WARNING:__main__:Room  2.311 is disabled
+WARNING:__main__:Room  2.306 is disabled
+INFO:__main__:Pull timetable for Room: 2.312
+INFO:__main__:Daten von Raum 2.312 erhalten ...
