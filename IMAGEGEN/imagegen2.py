@@ -238,7 +238,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         Custom_Msg = Custom_Config_Text
     else:
         Custom_Msg = display_Bottom
-    bbox = draw.textbbox((0,0) , Custom_Text, font=font_small, align="right")
+    bbox = draw.textbbox((0,0) , Custom_Msg, font=font_small, align="right")
     text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text((10, height - text_height - 20), Custom_Msg, font=font_small,
               fill=0, align="right")
