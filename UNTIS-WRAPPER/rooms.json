@@ -3,17 +3,20 @@
     {
       "id": "1",
       "roomnumber": "2.311",
-      "enabled": "false"
+      "enabled": "true",
+      "battery": "30"
     },
     {
       "id": "2",
       "roomnumber": "2.306",
-      "enabled": "false"
+      "enabled": "true",
+      "battery": "17"
     },
     {
       "id": "3",
       "roomnumber": "2.312",
-      "enabled": "true"
+      "enabled": "true",
+      "battery": "47"
     }
   ]
 }
