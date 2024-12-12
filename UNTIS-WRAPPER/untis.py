@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 #time things IDK
 time = datetime.datetime.now()
-#chtime = (time.strftime("%H%M"))
-chtime = "1007"
+chtime = (time.strftime("%H%M"))
+#chtime = "1007"
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
 end = start + datetime.timedelta(days=1)
@@ -100,6 +100,27 @@ def untis_get(raum):
                     subject3 = cache[13]
                     teacher3 = cache[14]
 
+                    #fourth hour
+                    starttime4 = cache[15]
+                    endtime4 = cache[16]
+                    klasse4 = cache[17]
+                    subject4 = cache[18]
+                    teacher4 = cache[19]
+
+                    #fifth hour
+                    starttime5 = cache[20]
+                    endtime5 = cache[21]
+                    klasse5 = cache[22]
+                    subject5 = cache[23]
+                    teacher5 = cache[24]
+
+                    #sixth hour
+                    starttime6 = cache[25]
+                    endtime6 = cache[26]
+                    klasse6 = cache[27]
+                    subject6 = cache[28]
+                    teacher6 = cache[29]
+
                     #check if the display first hour is double hour
                     if cache[2] == cache[7]: #class first hour = class second hour
                         if cache[3] == cache[8]: #subject first = subject second
@@ -107,6 +128,54 @@ def untis_get(raum):
                             teacher1 = cache[4] #teacher 1 = teacher 1
                             klasse1 = cache[2] #klasse1 = klasse 1
                             endtime1 = cache[6] #endtime = enddate2
+
+                            #make the third hour to the secound hour
+                            starttime2 = cache[10]
+                            endtime2 = cache[11]
+                            klasse2 = cache[12]
+                            subject2 = cache[13]
+                            teacher2 = cache[14]
+
+                            starttime3 = cache[15]
+                            endtime3 = cache[16]
+                            klasse3 = cache[17]
+                            subject3 = cache[18]
+                            teacher3 = cache[19]
+
+                    if cache[12] == cache[17]: # class third hour = class fourth hour
+                        if cache[13] == cache[18]:  # subject third = subject fourth
+                            subject2 = cache[13]  # subject 1 = subject 1
+                            teacher2 = cache[14]  # teacher 1 = teacher 1
+                            klasse2 = cache[12]  # klasse1 = klasse 1
+                            endtime2 = cache[16]  # endtime = enddate2
+
+                            #make the fourth hour to the third hour
+                            starttime3 = cache[20]
+                            endtime3 = cache[21]
+                            klasse3 = cache[22]
+                            subject3 = cache[23]
+                            teacher3 = cache[24]
+
+                    if cache[12] == cache[17]: # class fourth hour = class fifth hour
+                        if cache[13] == cache[18]:  # subject third = subject fourth
+                            subject2 = cache[13]  # subject 1 = subject 1
+                            teacher2 = cache[14]  # teacher 1 = teacher 1
+                            klasse2 = cache[12]  # klasse1 = klasse 1
+                            endtime2 = cache[16]  # endtime = enddate2
+
+                            #make the fourth hour to the third hour
+                            starttime3 = cache[20]
+                            endtime3 = cache[21]
+                            klasse3 = cache[22]
+                            subject3 = cache[23]
+                            teacher3 = cache[24]
+
+                    if cache[22] == cache[27]:  # class fourth hour = class fifth hour
+                        if cache[23] == cache[28]:  # subject third = subject fourth
+                                subject3 = cache[23]  # subject 1 = subject 1
+                                teacher3 = cache[24]  # teacher 1 = teacher 1
+                                klasse3 = cache[22]  # klasse1 = klasse 1
+                                endtime3 = cache[26]  # endtime = enddate2
 
                 except:
                     starttime1 = "0"
