@@ -1,3 +1,5 @@
 /.env
 /.idea/*
 /UNTIS-WRAPPER/.env
+/UNTIS-WRAPPER/log/*
+/UNTIS-WRAPPER/graustufenbild_demo.png
