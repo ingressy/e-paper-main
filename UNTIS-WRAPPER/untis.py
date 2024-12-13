@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 #time things IDK
 time = datetime.datetime.now()
-chtime = (time.strftime("%H%M"))
-#chtime = "1007"
+#chtime = (time.strftime("%H%M"))
+chtime = "0825"
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
 end = start + datetime.timedelta(days=1)
@@ -18,7 +18,7 @@ end = start + datetime.timedelta(days=1)
 def untis_get(raum):
     #try to open the config json file
     try:
-        with open('../config.json', 'r') as config_file:
+        with (open('../config.json', 'r') as config_file):
             config_data = json.load(config_file)
 
             # login by the untis api
@@ -79,126 +79,141 @@ def untis_get(raum):
                 #call the untis2imagegen.py file
                 # var array
                 # first hour
-                try:
-                    starttime1 = cache[0]
-                    endtime1 = cache[1]
-                    klasse1 = cache[2]
-                    subject1 = cache[3]
-                    teacher1 = cache[4]
+                    try:
+                        starttime1 = cache[0]
+                        endtime1 = cache[1]
+                        klasse1 = cache[2]
+                        subject1 = cache[3]
+                        teacher1 = cache[4]
 
-                    # secound hour
-                    starttime2 = cache[5]
-                    endtime2 = cache[6]
-                    klasse2 = cache[7]
-                    subject2 = cache[8]
-                    teacher2 = cache[9]
+                        # secound hour
+                        starttime2 = cache[5]
+                        endtime2 = cache[6]
+                        klasse2 = cache[7]
+                        subject2 = cache[8]
+                        teacher2 = cache[9]
 
-                    #third hour
-                    starttime3 = cache[10]
-                    endtime3 = cache[11]
-                    klasse3 = cache[12]
-                    subject3 = cache[13]
-                    teacher3 = cache[14]
+                        #third hour
+                        starttime3 = cache[10]
+                        endtime3 = cache[11]
+                        klasse3 = cache[12]
+                        subject3 = cache[13]
+                        teacher3 = cache[14]
 
-                    #fourth hour
-                    starttime4 = cache[15]
-                    endtime4 = cache[16]
-                    klasse4 = cache[17]
-                    subject4 = cache[18]
-                    teacher4 = cache[19]
+                        #fourth hour
+                        starttime4 = cache[15]
+                        endtime4 = cache[16]
+                        klasse4 = cache[17]
+                        subject4 = cache[18]
+                        teacher4 = cache[19]
 
-                    #fifth hour
-                    starttime5 = cache[20]
-                    endtime5 = cache[21]
-                    klasse5 = cache[22]
-                    subject5 = cache[23]
-                    teacher5 = cache[24]
+                        #fifth hour
+                        starttime5 = cache[20]
+                        endtime5 = cache[21]
+                        klasse5 = cache[22]
+                        subject5 = cache[23]
+                        teacher5 = cache[24]
 
-                    #sixth hour
-                    starttime6 = cache[25]
-                    endtime6 = cache[26]
-                    klasse6 = cache[27]
-                    subject6 = cache[28]
-                    teacher6 = cache[29]
+                        #sixth hour
+                        starttime6 = cache[25]
+                        endtime6 = cache[26]
+                        klasse6 = cache[27]
+                        subject6 = cache[28]
+                        teacher6 = cache[29]
 
-                    #check if the display first hour is double hour
-                    if cache[2] == cache[7]: #class first hour = class second hour
-                        if cache[3] == cache[8]: #subject first = subject second
-                            subject1 = cache[3] #subject 1 = subject 1
-                            teacher1 = cache[4] #teacher 1 = teacher 1
-                            klasse1 = cache[2] #klasse1 = klasse 1
-                            endtime1 = cache[6] #endtime = enddate2
+                        #check if the display first hour is double hour
+                        if cache[2] == cache[7]: #class first hour = class second hour
+                            if cache[3] == cache[8]: #subject first = subject second
+                                subject1 = cache[3] #subject 1 = subject 1
+                                teacher1 = cache[4] #teacher 1 = teacher 1
+                                klasse1 = cache[2] #klasse1 = klasse 1
+                                endtime1 = cache[6] #endtime = enddate2
 
-                            #make the third hour to the secound hour
-                            starttime2 = cache[10]
-                            endtime2 = cache[11]
-                            klasse2 = cache[12]
-                            subject2 = cache[13]
-                            teacher2 = cache[14]
+                                #make the third hour to the secound hour
+                                starttime2 = cache[10]
+                                endtime2 = cache[11]
+                                klasse2 = cache[12]
+                                subject2 = cache[13]
+                                teacher2 = cache[14]
 
-                            starttime3 = cache[15]
-                            endtime3 = cache[16]
-                            klasse3 = cache[17]
-                            subject3 = cache[18]
-                            teacher3 = cache[19]
+                                #fourth hour
+                                starttime3 = cache[15]
+                                endtime3 = cache[16]
+                                klasse3 = cache[17]
+                                subject3 = cache[18]
+                                teacher3 = cache[19]
 
-                    if cache[12] == cache[17]: # class third hour = class fourth hour
-                        if cache[13] == cache[18]:  # subject third = subject fourth
-                            subject2 = cache[13]  # subject 1 = subject 1
-                            teacher2 = cache[14]  # teacher 1 = teacher 1
-                            klasse2 = cache[12]  # klasse1 = klasse 1
-                            endtime2 = cache[16]  # endtime = enddate2
+                        elif cache[7] == cache[12]:#class second hour = class third hour
+                            if cache[8] == cache[13]: #subject first = subject second
+                                subject2 = cache[8] #subject 1 = subject 1
+                                teacher2 = cache[9] #teacher 1 = teacher 1
+                                klasse2 = cache[7] #klasse1 = klasse 1
+                                endtime2 = cache[11] #endtime = enddate2
 
-                            #make the fourth hour to the third hour
-                            starttime3 = cache[20]
-                            endtime3 = cache[21]
-                            klasse3 = cache[22]
-                            subject3 = cache[23]
-                            teacher3 = cache[24]
+                                #fourth hour
+                                starttime3 = cache[15]
+                                endtime3 = cache[16]
+                                klasse3 = cache[17]
+                                subject3 = cache[18]
+                                teacher3 = cache[19]
 
-                    if cache[12] == cache[17]: # class fourth hour = class fifth hour
-                        if cache[13] == cache[18]:  # subject third = subject fourth
-                            subject2 = cache[13]  # subject 1 = subject 1
-                            teacher2 = cache[14]  # teacher 1 = teacher 1
-                            klasse2 = cache[12]  # klasse1 = klasse 1
-                            endtime2 = cache[16]  # endtime = enddate2
+                        elif cache[12] == cache[17]: # class third hour = class fourth hour
+                            if cache[13] == cache[18]:  # subject third = subject fourth
+                                subject2 = cache[13]  # subject 1 = subject 1
+                                teacher2 = cache[14]  # teacher 1 = teacher 1
+                                klasse2 = cache[12]  # klasse1 = klasse 1
+                                endtime2 = cache[16]  # endtime = enddate2
 
-                            #make the fourth hour to the third hour
-                            starttime3 = cache[20]
-                            endtime3 = cache[21]
-                            klasse3 = cache[22]
-                            subject3 = cache[23]
-                            teacher3 = cache[24]
+                                #make the sixth hour to the third hour
+                                starttime3 = cache[25]
+                                endtime3 = cache[26]
+                                klasse3 = cache[27]
+                                subject3 = cache[18]
+                                teacher3 = cache[29]
 
-                    if cache[22] == cache[27]:  # class fourth hour = class fifth hour
-                        if cache[23] == cache[28]:  # subject third = subject fourth
+                        elif cache[17] == cache[22]: # class fourth hour = class fifth hour
+                            if cache[18] == cache[23]:  # subject fourth = subject fifth
+                                subject2 = cache[18]  # subject 1 = subject 1
+                                teacher2 = cache[19]  # teacher 1 = teacher 1
+                                klasse2 = cache[17]  # klasse1 = klasse 1
+                                endtime2 = cache[21]  # endtime = enddate2
+
+                                #make the sixth hour to the third hour
+                                starttime3 = cache[25]
+                                endtime3 = cache[26]
+                                klasse3 = cache[27]
+                                subject3 = cache[28]
+                                teacher3 = cache[29]
+
+                        elif cache[22] == cache[27]: # class fifth hour = class sixth hour
+                            if cache[23] == cache[28]:  # subject fourth = subject fifth
                                 subject3 = cache[23]  # subject 1 = subject 1
                                 teacher3 = cache[24]  # teacher 1 = teacher 1
                                 klasse3 = cache[22]  # klasse1 = klasse 1
                                 endtime3 = cache[26]  # endtime = enddate2
+                    except:
+                        #print("hier stimmt was nicht")
+                        starttime1 = "0"
+                        starttime2 = "0"
+                        starttime3 = "0"
+                        endtime1 = "0"
+                        endtime2 = "0"
+                        endtime3 = "0"
 
-                except:
-                    starttime1 = "0"
-                    starttime2 = "0"
-                    starttime3 = "0"
-                    endtime1 = "0"
-                    endtime2 = "0"
-                    endtime3 = "0"
+                        klasse1 = "0"
+                        klasse2 = "0"
+                        klasse3 = "0"
 
-                    klasse1 = "0"
-                    klasse2 = "0"
-                    klasse3 = "0"
+                        subject1 = "0"
+                        subject2 = "0"
+                        subject3 = "0"
 
-                    subject1 = "0"
-                    subject2 = "0"
-                    subject3 = "0"
+                        teacher1 = "0"
+                        teacher2 = "0"
+                        teacher3 = "0"
 
-                    teacher1 = "0"
-                    teacher2 = "0"
-                    teacher3 = "0"
-
-                untis2imagegen(raum, klasse1, teacher1, subject1, starttime1, endtime1, c, klasse2, teacher2, subject2, starttime2, endtime2, klasse3, teacher3, subject3, starttime3, endtime3)
-                logger.info(f"Daten von Raum {raum} erhalten ...")
+                    untis2imagegen(raum, klasse1, teacher1, subject1, starttime1, endtime1, c, klasse2, teacher2, subject2, starttime2, endtime2, klasse3, teacher3, subject3, starttime3, endtime3)
+                    logger.info(f"Daten von Raum {raum} erhalten ...")
 
     except FileNotFoundError:
         c_config_file()
@@ -282,8 +297,9 @@ def main():
                     USERAGENT = os.getenv('USERAGENT')
                     
                     #Easter Egg change the font ~ 1/100 probability
-                    ran = random.randint(0, 100)
-                    if ran == "69":
+                    #ran = random.randint(0, 1)
+                    ran = "0"
+                    if ran == "1":
                         with open('../config.json', 'r') as config_file:
                             config_data = json.load(config_file)
                             for config in config_data["config"]:
