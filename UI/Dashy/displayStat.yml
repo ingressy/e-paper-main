@@ -1,0 +1,22 @@
+sections:
+  - name: Batterys
+    icon: https://t3.ftcdn.net/jpg/07/35/15/64/360_F_735156482_sXZfkgISkgIFU8hogyb9xJ0mOiSfaQWk.jpg
+    displayData:
+      showForUsers:
+        - PJoK
+        - ingressy
+        - Lecuve
+        - TestUser
+        - Jusch
+      sortBy: alphabet
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: true
+    items:
+      - &ref_0
+        title: Test
+        description: Test redirect to google
+        icon: https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTGxKmcisUirE7x8atC0k9G6qPZKeaS41nUAazCEkBhyyATLGWmh1PEdA_2SKVN__ekwcODfqvywSxMrySy_GTRddN-PQ2k5YhKP2gwkXUg
+        url: https://www.google.com
+        target: newtab
