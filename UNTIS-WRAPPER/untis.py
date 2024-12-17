@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 #time things IDK
 time = datetime.datetime.now()
-#chtime = (time.strftime("%H%M"))
-chtime = "0825"
+chtime = (time.strftime("%H%M"))
+#chtime = "0825"
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
 end = start + datetime.timedelta(days=1)
@@ -125,7 +125,7 @@ def untis_get(raum):
                         if cache[2] == cache[7]: #class first hour = class second hour
                             if cache[3] == cache[8]: #subject first = subject second
                                 subject1 = cache[3] #subject 1 = subject 1
-                                teacher1 = cache[4] #teacher 1 = teacher 1
+                                teacher1 = cache[4]
                                 klasse1 = cache[2] #klasse1 = klasse 1
                                 endtime1 = cache[6] #endtime = enddate2
 
@@ -137,13 +137,13 @@ def untis_get(raum):
                                 teacher2 = cache[14]
 
                                 #fourth hour
-                                starttime3 = cache[15]
-                                endtime3 = cache[16]
-                                klasse3 = cache[17]
-                                subject3 = cache[18]
-                                teacher3 = cache[19]
+                                #starttime3 = cache[15]
+                                #endtime3 = cache[16]
+                                #klasse3 = cache[17]
+                                #subject3 = cache[18]
+                                #teacher3 = cache[19]
 
-                        elif cache[7] == cache[12]:#class second hour = class third hour
+                        if cache[7] == cache[12]:#class second hour = class third hour
                             if cache[8] == cache[13]: #subject first = subject second
                                 subject2 = cache[8] #subject 1 = subject 1
                                 teacher2 = cache[9] #teacher 1 = teacher 1
@@ -157,7 +157,7 @@ def untis_get(raum):
                                 subject3 = cache[18]
                                 teacher3 = cache[19]
 
-                        elif cache[12] == cache[17]: # class third hour = class fourth hour
+                        if cache[12] == cache[17]: # class third hour = class fourth hour
                             if cache[13] == cache[18]:  # subject third = subject fourth
                                 subject2 = cache[13]  # subject 1 = subject 1
                                 teacher2 = cache[14]  # teacher 1 = teacher 1
@@ -171,7 +171,8 @@ def untis_get(raum):
                                 subject3 = cache[18]
                                 teacher3 = cache[29]
 
-                        elif cache[17] == cache[22]: # class fourth hour = class fifth hour
+
+                        if cache[17] == cache[22]: # class fourth hour = class fifth hour
                             if cache[18] == cache[23]:  # subject fourth = subject fifth
                                 subject2 = cache[18]  # subject 1 = subject 1
                                 teacher2 = cache[19]  # teacher 1 = teacher 1
@@ -185,12 +186,13 @@ def untis_get(raum):
                                 subject3 = cache[28]
                                 teacher3 = cache[29]
 
-                        elif cache[22] == cache[27]: # class fifth hour = class sixth hour
+                        if cache[22] == cache[27]: # class fifth hour = class sixth hour
                             if cache[23] == cache[28]:  # subject fourth = subject fifth
                                 subject3 = cache[23]  # subject 1 = subject 1
                                 teacher3 = cache[24]  # teacher 1 = teacher 1
                                 klasse3 = cache[22]  # klasse1 = klasse 1
                                 endtime3 = cache[26]  # endtime = enddate2
+
                     except:
                         #print("hier stimmt was nicht")
                         starttime1 = "0"
