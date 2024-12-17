@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 #time things IDK
 time = datetime.datetime.now()
-chtime = (time.strftime("%H%M"))
-#chtime = "0825"
+#chtime = (time.strftime("%H%M"))
+chtime = "0825"
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
 end = start + datetime.timedelta(days=1)
@@ -44,6 +44,7 @@ def untis_get(raum):
                 time_format_date = "%Y-%m-%d"
 
                 #create a list for cache things
+                global cache
                 cache = []
 
                 #printed the timetable of a room
@@ -73,8 +74,9 @@ def untis_get(raum):
                         cache.append(k)
                         cache.append(sub)
                         cache.append(t)
+                        cache.append(c)
 
-                        #print(cache)
+                        print(cache)
 
                 #call the untis2imagegen.py file
                 # var array
@@ -82,59 +84,87 @@ def untis_get(raum):
                     try:
                         starttime1 = cache[0]
                         endtime1 = cache[1]
-                        klasse1 = cache[2]
+
+                        klasse1 = x_klasse(2, "klasse1")
+                        #klasse1 = cache[2]
+
                         subject1 = cache[3]
                         teacher1 = cache[4]
+                        if cache[5] == "(cancelled)":
+                            abw1 = "1"
 
                         # secound hour
-                        starttime2 = cache[5]
-                        endtime2 = cache[6]
-                        klasse2 = cache[7]
-                        subject2 = cache[8]
-                        teacher2 = cache[9]
+                        starttime2 = cache[6]
+                        endtime2 = cache[7]
+
+                        klasse2 = x_klasse(8, "klasse2")
+                        #klasse2 = cache[8]
+
+                        subject2 = cache[9]
+                        teacher2 = cache[10]
+                        if cache[11] == "(cancelled)":
+                            abw1 = "1"
 
                         #third hour
-                        starttime3 = cache[10]
-                        endtime3 = cache[11]
-                        klasse3 = cache[12]
-                        subject3 = cache[13]
-                        teacher3 = cache[14]
+                        starttime3 = cache[12]
+                        endtime3 = cache[13]
+
+                        klasse3 = x_klasse(14, "klasse3")
+                        #klasse3 = cache[14]
+
+                        subject3 = cache[15]
+                        teacher3 = cache[16]
+                        if cache[17] == "(cancelled)":
+                            abw1 = "1"
 
                         #fourth hour
-                        starttime4 = cache[15]
-                        endtime4 = cache[16]
-                        klasse4 = cache[17]
-                        subject4 = cache[18]
-                        teacher4 = cache[19]
+                        starttime4 = cache[18]
+                        endtime4 = cache[19]
+                        klasse4 = cache[20]
+                        subject4 = cache[21]
+                        teacher4 = cache[22]
+                        abw4 = cache[23]
 
                         #fifth hour
-                        starttime5 = cache[20]
-                        endtime5 = cache[21]
-                        klasse5 = cache[22]
-                        subject5 = cache[23]
-                        teacher5 = cache[24]
+                        starttime5 = cache[24]
+                        endtime5 = cache[25]
+                        klasse5 = cache[26]
+                        subject5 = cache[27]
+                        teacher5 = cache[28]
+                        abw5 = cache[29]
 
                         #sixth hour
-                        starttime6 = cache[25]
-                        endtime6 = cache[26]
-                        klasse6 = cache[27]
-                        subject6 = cache[28]
-                        teacher6 = cache[29]
+                        starttime6 = cache[30]
+                        endtime6 = cache[31]
+                        klasse6 = cache[32]
+                        subject6 = cache[33]
+                        teacher6 = cache[34]
+                        abw6 = cache[35]
 
                         #check if the display first hour is double hour
-                        if cache[2] == cache[7]: #class first hour = class second hour
-                            if cache[3] == cache[8]: #subject first = subject second
+                        if cache[2] == cache[8]: #class first hour = class second hour
+                            if cache[3] == cache[9]: #subject first = subject second
                                 subject1 = cache[3] #subject 1 = subject 1
                                 teacher1 = cache[4]
-                                klasse1 = cache[2] #klasse1 = klasse 1
-                                endtime1 = cache[6] #endtime = enddate2
+
+                                klasse1 = x_klasse(2, "klasse1")
+                                #klasse1 = cache[2] #klasse1 = klasse 1
+
+                                endtime1 = cache[7] #endtime = enddate2
+                                if cache[11] == "(cancelled)":
+                                    abw1 = "1"
 
                                 #make the third hour to the secound hour
-                                starttime2 = cache[10]
-                                endtime2 = cache[11]
-                                klasse2 = cache[12]
-                                subject2 = cache[13]
-                                teacher2 = cache[14]
+                                starttime2 = cache[12]
+                                endtime2 = cache[13]
+
+                                klasse2 = x_klasse(14, "klasse2")
+                                #klasse2 = cache[12]
+
+                                subject2 = cache[15]
+                                teacher2 = cache[16]
+                                if cache[17] == "(cancelled)":
+                                    abw2 = "1"
 
                                 #fourth hour
                                 #starttime3 = cache[15]
@@ -143,61 +173,80 @@ def untis_get(raum):
                                 #subject3 = cache[18]
                                 #teacher3 = cache[19]
 
-                        if cache[7] == cache[12]:#class second hour = class third hour
-                            if cache[8] == cache[13]: #subject first = subject second
-                                subject2 = cache[8] #subject 1 = subject 1
-                                teacher2 = cache[9] #teacher 1 = teacher 1
-                                klasse2 = cache[7] #klasse1 = klasse 1
-                                endtime2 = cache[11] #endtime = enddate2
+                        if cache[8] == cache[14]:#class second hour = class third hour
+                            if cache[9] == cache[15]: #subject first = subject second
+                                subject2 = cache[9] #subject 1 = subject 1
+                                teacher2 = cache[10] #teacher 1 = teacher 1
+
+                                klasse2 = x_klasse(8, "klasse2")
+                                #klasse2 = cache[7] #klasse1 = klasse 1
+
+                                endtime2 = cache[13] #endtime = enddate2
 
                                 #fourth hour
-                                starttime3 = cache[15]
-                                endtime3 = cache[16]
-                                klasse3 = cache[17]
-                                subject3 = cache[18]
-                                teacher3 = cache[19]
+                                starttime3 = cache[18]
+                                endtime3 = cache[19]
 
-                        if cache[12] == cache[17]: # class third hour = class fourth hour
-                            if cache[13] == cache[18]:  # subject third = subject fourth
-                                subject2 = cache[13]  # subject 1 = subject 1
-                                teacher2 = cache[14]  # teacher 1 = teacher 1
-                                klasse2 = cache[12]  # klasse1 = klasse 1
-                                endtime2 = cache[16]  # endtime = enddate2
+                                klasse3 = x_klasse(20, "klasse3")
+                                #klasse3 = cache[17]
 
-                                #make the sixth hour to the third hour
-                                starttime3 = cache[25]
-                                endtime3 = cache[26]
-                                klasse3 = cache[27]
-                                subject3 = cache[18]
-                                teacher3 = cache[29]
+                                subject3 = cache[21]
+                                teacher3 = cache[22]
 
+                        if cache[14] == cache[20]: # class third hour = class fourth hour
+                            if cache[15] == cache[21]:  # subject third = subject fourth
+                                subject2 = cache[15]  # subject 1 = subject 1
+                                teacher2 = cache[16]  # teacher 1 = teacher 1
 
-                        if cache[17] == cache[22]: # class fourth hour = class fifth hour
-                            if cache[18] == cache[23]:  # subject fourth = subject fifth
-                                subject2 = cache[18]  # subject 1 = subject 1
-                                teacher2 = cache[19]  # teacher 1 = teacher 1
-                                klasse2 = cache[17]  # klasse1 = klasse 1
-                                endtime2 = cache[21]  # endtime = enddate2
+                                klasse2 = x_klasse(14, "klasse2")
+                                #klasse2 = cache[12]  # klasse1 = klasse 1
+
+                                endtime2 = cache[19]  # endtime = enddate2
 
                                 #make the sixth hour to the third hour
-                                starttime3 = cache[25]
-                                endtime3 = cache[26]
-                                klasse3 = cache[27]
-                                subject3 = cache[28]
-                                teacher3 = cache[29]
+                                starttime3 = cache[30]
+                                endtime3 = cache[31]
+                                klasse3 = cache[32]
+                                subject3 = cache[33]
+                                teacher3 = cache[34]
 
-                        if cache[22] == cache[27]: # class fifth hour = class sixth hour
-                            if cache[23] == cache[28]:  # subject fourth = subject fifth
-                                subject3 = cache[23]  # subject 1 = subject 1
-                                teacher3 = cache[24]  # teacher 1 = teacher 1
-                                klasse3 = cache[22]  # klasse1 = klasse 1
-                                endtime3 = cache[26]  # endtime = enddate2
+
+                        if cache[20] == cache[26]: # class fourth hour = class fifth hour
+                            if cache[21] == cache[27]:  # subject fourth = subject fifth
+                                subject2 = cache[21]  # subject 1 = subject 1
+                                teacher2 = cache[22]  # teacher 1 = teacher 1
+
+                                klasse2 = x_klasse(20, "klasse2")
+                                #klasse2 = cache[17]  # klasse1 = klasse 1
+
+                                endtime2 = cache[25]  # endtime = enddate2
+
+                                #make the sixth hour to the third hour
+                                starttime3 = cache[30]
+                                endtime3 = cache[31]
+
+                                klasse3 = x_klasse(32, "klasse3")
+                                #klasse3 = cache[32]
+
+                                subject3 = cache[33]
+                                teacher3 = cache[34]
+
+                        if cache[26] == cache[32]: # class fifth hour = class sixth hour
+                            if cache[27] == cache[33]:  # subject fourth = subject fifth
+                                subject3 = cache[27]  # subject 1 = subject 1
+                                teacher3 = cache[28]  # teacher 1 = teacher 1
+
+                                klasse3 = x_klasse(26, "klasse3")
+                                #klasse3 = cache[22]  # klasse1 = klasse 1
+
+                                endtime3 = cache[31]  # endtime = enddate2
 
                     except:
                         #print("hier stimmt was nicht")
                         starttime1 = "0"
                         starttime2 = "0"
                         starttime3 = "0"
+
                         endtime1 = "0"
                         endtime2 = "0"
                         endtime3 = "0"
@@ -214,7 +263,11 @@ def untis_get(raum):
                         teacher2 = "0"
                         teacher3 = "0"
 
-                    untis2imagegen(raum, klasse1, teacher1, subject1, starttime1, endtime1, c, klasse2, teacher2, subject2, starttime2, endtime2, klasse3, teacher3, subject3, starttime3, endtime3)
+                        abw1 = "0"
+                        abw2 = "0"
+                        abw3 = "0"
+
+                    untis2imagegen(raum, klasse1, teacher1, subject1, starttime1, endtime1, abw1, klasse2, teacher2, subject2, starttime2, endtime2, abw2, klasse3, teacher3, subject3, starttime3, endtime3, abw3)
                     logger.info(f"Daten von Raum {raum} erhalten ...")
 
     except FileNotFoundError:
@@ -239,6 +292,19 @@ def c_config_file():
     except:
         logger.error("File creation not possible")
         print("File creation not possible")
+
+def x_klasse(cache_number, display_klasse):
+
+    klasse = cache[cache_number]
+    count = sum(1 for i in klasse)
+    number = [zeichen for zeichen in klasse if zeichen.isdigit()]
+
+    klasse_number = str(''.join(number))[:2] + "X"
+    if count >= 8:
+        klasse_prefix = klasse[:3]
+        return klasse_prefix + ' ' + klasse_number
+    else:
+        return cache[cache_number]
 
 def main():
     #check if log folder exist
