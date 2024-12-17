@@ -25,7 +25,8 @@
             "Config_rect_height": 100,
             "Config_rect_margin": 140,
             "Config_rect_spacing": 30,
-            "Custom_Text": "~UwU"
+            "Custom_Text": "~UwU",
+            "MaintenanceMode": false
         }
     ]
 }
