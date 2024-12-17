@@ -25,7 +25,7 @@ def warnBats():
 
         for i in data['rooms']:
             if(i['enabled'][0]) == "t":
-                if(i['battery']) <= "30":
+                if(i['battery']) <= "20":
                     displayName = (i['roomnumber'])
                     lowBatMsg = {
                         "username": "Display Status",
@@ -40,8 +40,36 @@ def warnBats():
                     print(response.text)
             else:
                 print(f"{i['roomnumber']} is not enabled! (Skipped)")
+def connectionWarn(room,lastResponse):
+    with open(f"../UNTIS-WRAPPER/{roomdatabase}",'r') as file:
+        data = json.load(file)
+        for i in data['rooms']:
+            if i['roomnumber'] == room:
+                lastBattStat = i['battery']
+        connLostMsg = {
+            "username": "Display Status",
+            "avatar_url": "https://www.ionos.de/digitalguide/fileadmin/_processed_/b/e/csm_was-ist-ein-server-t_22a78122ca.webp",
+            "embeds": [{
+                "title": "Kritisch!",
+                "description": f"Das Display {room} hat keinen Response mehr gegeben!",
+                "color": 16711680,
+                "fields": [{
+                    "name": "Letzter Batteriestand:",
+                    "value": lastBattStat,
+                    "inline": True
+                },
+                {
+                    "name": "Letzter Response:",
+                    "value": lastResponse,
+                    "inline": True
+                }
+                ]
+            }]
+        }
+        response = requests.post(webhook_url, json=connLostMsg)
 
 
-
-
+# warnBats soll jeden Tag nur einmal ausgeführt werden, sie geht einmal alles durch.
 warnBats()
+connectionWarn("2.311","23:16")
+# Das sind nur Tests, diese Func in Server.py importieren bei gegebenen Events
