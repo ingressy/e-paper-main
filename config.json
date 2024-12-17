@@ -12,7 +12,8 @@
             "username": null,
             "password": null,
             "school": null,
-            "useragent": null
+            "useragent": null,
+            "Discord_Webhook": null
         },
         {
             "_comment": "Config for Image-Gen.py",

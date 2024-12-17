@@ -1,7 +1,7 @@
-import requests, json
+import requests, json,os
+from dotenv import load_dotenv
 
 # Discord Channel Webhook:
-webhook_url = "https://discordapp.com/api/webhooks/1316828498849038346/ao7P6352CIRyxdCigP7GRjxtwJSAlRE9dBus0jD9P4gGjJl4wxNZ24_gXb_2GdHOQlsU"
 try:
     with open('../config.json', 'r') as config_file:
         config_data = json.load(config_file)
@@ -10,8 +10,13 @@ try:
         roomdatabase = config_data['config'][0]['roomdatabase']
 except FileNotFoundError:
     print("batts_webhook.py: Config file not found! PLease check the File!")
-
-# Vordefinineren der Varibale, um Errors zu vermeiden:
+try:
+    global webhook_url
+    load_dotenv('../UNTIS-WRAPPER/.env')
+    webhook_url = os.getenv('DCWEBHOOK')
+except:
+    print("batts_webhook.py: Get .env Error!")
+# Vordefinineren der Variable, um Errors zu vermeiden:
 
 def warnBats():
     # Für jeden Raum den Batteriestand abfragen:
