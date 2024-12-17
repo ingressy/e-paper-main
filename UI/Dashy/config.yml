@@ -77,24 +77,127 @@ sections:
       collapsed: false
       hideForGuests: true
     items:
-      - title: GitHub
+      - &ref_0
+        title: GitHub
         description: DoorSign GitHub Main
         icon: fab fa-github
         url: https://github.com/tbz-nerd-ag/e-paper-main
         id: 0_798_github
-      - title: Trello
+      - &ref_1
+        title: Trello
         description: Trello Link
         icon: https://cdn.worldvectorlogo.com/logos/trello.svg
         url: https://trello.com/b/BFe7LYSv/e-paper
         target: newtab
         id: 1_798_trello
-      - title: Discord
+      - &ref_2
+        title: Discord
         description: AG Discord Server
         icon: >-
           https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg
         url: https://discord.gg/jh49n4hRMr
         target: newtab
         id: 2_798_discord
+    widgets:
+      - type: clock
+        options:
+          timeZone: Europe/Amsterdam
+          format: de-DE
+          hideDate: 'false'
+        id: 0_798_clock
+    filteredItems:
+      - *ref_0
+      - *ref_1
+      - *ref_2
+  - name: Total Orga Stats
+    icon: far fa-chart-simple
+    displayData:
+      showForUsers:
+        - ingressy
+        - PJoK
+        - Lecuve
+        - TestUser
+        - Jusch
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: true
+    widgets:
+      - type: github-profile-stats
+        options:
+          username: ingressy
+          hideLanguagesCard: 'true'
+          repos:
+            - tbz-nerd-ag/e-paper-main
+        id: 0_1500_githubprofilestats
+    filteredItems: []
+  - name: Personal Stats
+    icon: far chart-simple
+    displayData:
+      showForUsers:
+        - PJoK
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: true
+    widgets:
+      - type: code-stats
+        options:
+          username: InvalidGamer
+          monthsToShow: '3'
+          hideMeta: 'false'
+          hideLanguages: 'true'
+          hideMachines: 'true'
+        id: 0_1395_codestats
+      - type: github-profile-stats
+        options:
+          username: Invalid-Gamer
+          hideLanguagesCard: 'false'
+          repos:
+            - Invalid-Gamer/e-paper-main
+        id: 1_1395_githubprofilestats
+    filteredItems: []
+  - name: Personal Stats
+    icon: fa-solid fa-chart-simple
+    displayData:
+      showForUsers:
+        - ingressy
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: true
+    widgets:
+      - type: code-stats
+        options:
+          username: ingressy
+          monthsToShow: '12'
+          hideMeta: 'false'
+          hideLanguages: 'true'
+          hideMachines: 'true'
+        id: 0_1395_codestats
+      - type: github-profile-stats
+        options:
+          username: ingressy
+          hideLanguagesCard: 'true'
+          repos:
+            - ingressy/e-paper-main
+        id: 1_1395_githubprofilestats
+  - name: Navigation
+    displayData:
+      sortBy: alphabetical
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: true
+    items:
+      - &ref_3
+        title: Display Stats
+        description: Display Stats Page
+        url: https://doorsign.ingressy.de/home/display-stats
+        target: sametab
+        id: 0_1040_displaystats
+    filteredItems:
+      - *ref_3
 pages:
   - name: display-stats
     path: displayStat.yml
