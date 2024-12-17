@@ -1,6 +1,9 @@
+pageInfo:
+  title: DoorSign Display Stats
 sections:
   - name: Batterys
-    icon: https://t3.ftcdn.net/jpg/07/35/15/64/360_F_735156482_sXZfkgISkgIFU8hogyb9xJ0mOiSfaQWk.jpg
+    icon: >-
+      https://t3.ftcdn.net/jpg/07/35/15/64/360_F_735156482_sXZfkgISkgIFU8hogyb9xJ0mOiSfaQWk.jpg
     displayData:
       showForUsers:
         - PJoK
@@ -8,15 +11,74 @@ sections:
         - Lecuve
         - TestUser
         - Jusch
-      sortBy: alphabet
-      rows: 1
+      rows: 5
       cols: 1
       collapsed: false
       hideForGuests: true
-    items:
-      - &ref_0
-        title: Test
-        description: Test redirect to google
-        icon: https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTGxKmcisUirE7x8atC0k9G6qPZKeaS41nUAazCEkBhyyATLGWmh1PEdA_2SKVN__ekwcODfqvywSxMrySy_GTRddN-PQ2k5YhKP2gwkXUg
-        url: https://www.google.com
-        target: newtab
+    filteredItems: []
+pages:
+  - name: display-stats
+    path: displayStat.yml
+    displayData:
+      hideForGuests: false
+appConfig:
+  language: de
+  theme: vaporware
+  auth:
+    users:
+      - user: TestUser
+        hash: 2EB4C124891BC1F82E6B2CE294934139F21450CBF67288E029D6F4F6D241A0E7
+        type: normal
+      - user: PJoK
+        hash: C43E3309600CDF255AFF2D28A1A14A1C31C75E7B04E8E05293D73641AAE33FF0
+        type: admin
+      - user: ingressy
+        hash: C4B4ECAF876E6EE9F431D5F2662FE738BFA2C986869AF1B09BE9C8EC8D6F609C
+        type: admin
+      - user: Lecuve
+        hash: 554CB2F43D2BDF9AAB8A3EFCAB43BEDBC9C3B92DC7A6996B3AC4A0633AAD5737
+        type: admin
+      - user: Jusch
+        hash: EF5BC17A57DEFBBA74C0BF786478C0A70B9D4558F8B411C3834F83930EF95A41
+        type: admin
+    enableGuestAccess: false
+    enableOidc: false
+    enableHeaderAuth: false
+    headerAuth:
+      userHeader: REMOTE_USER
+      proxyWhitelist: []
+    enableKeycloak: false
+  layout: auto
+  iconSize: medium
+  startingView: default
+  defaultOpeningMethod: newtab
+  statusCheck: false
+  statusCheckInterval: 0
+  faviconApi: allesedv
+  routingMode: history
+  enableMultiTasking: false
+  widgetsAlwaysUseProxy: false
+  webSearch:
+    disableWebSearch: false
+    searchEngine: duckduckgo
+    openingMethod: newtab
+    searchBangs: {}
+  enableFontAwesome: true
+  enableMaterialDesignIcons: false
+  hideComponents:
+    hideHeading: false
+    hideNav: false
+    hideSearch: false
+    hideSettings: false
+    hideFooter: false
+  showSplashScreen: false
+  preventWriteToDisk: false
+  preventLocalSave: false
+  disableConfiguration: false
+  disableConfigurationForNonAdmin: true
+  allowConfigEdit: true
+  enableServiceWorker: false
+  disableContextMenu: false
+  disableUpdateChecks: false
+  disableSmartSort: false
+  enableErrorReporting: false
