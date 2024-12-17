@@ -29,6 +29,7 @@ try:
 
         # Standard Bottom Text aus Config abrufen
         Custom_Config_Text = config_data['config'][2]['Custom_Text']
+        MaintenanceMode = config_data['config'][2]['Maintenancemode']
 
 except:
     print("Configfile not found - Please check the File!")
@@ -258,11 +259,14 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     draw.text((10, height - text_height - 20), Custom_Msg, font=font_small,
               fill=0, align="right")
 
-    # Bild anzeigen und speichern (Wartungsmodus)
-    image.save('graustufenbild_demo.png')
-    # Umkommentieren nach Belieben!
-    # Bild nach Raumname in ROMMIMAGES speichern
-    # image.save(f"../ROOMIMAGES/{room}",'png')
+    # Überprüfen, ob der Wartungsmodus false oder true ist:
+    if MaintenanceMode == True:
+        # Bild speichern als graustufenbild_demo (Wartungsmodus)
+        image.save('graustufenbild_demo.png')
+    elif MaintenanceMode == False:
+        # Bild nach Raumname in ROMMIMAGES speichern
+        image.save(f"../ROOMIMAGES/{room}", 'png')
+
 
 # gen_image("2.310","1","2","SCJ","BInf","BGT 241","0","0","0","0","0","0","0","0","0","0", "0","0","0")
 
