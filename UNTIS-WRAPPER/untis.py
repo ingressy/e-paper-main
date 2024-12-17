@@ -249,7 +249,8 @@ def main():
                     env.write(f"NAME={config_data['config'][1]['username']}\n")
                     env.write(f"PASSWORD={config_data['config'][1]['password']}\n")
                     env.write(f"SCHOOL={config_data['config'][1]['school']}\n")
-                    env.write(f"USERAGENT={config_data['config'][1]['useragent']}")
+                    env.write(f"USERAGENT={config_data['config'][1]['useragent']}\n")
+                    env.write(f"DCWEBHOOK={config_data['config'][1]['Discord_Webhook']}")
 
                     #delete login data in config.json
                     for config in config_data["config"]:
@@ -263,6 +264,8 @@ def main():
                             config["school"] = None
                         if "useragent" in config:
                             config["useragent"] = None
+                        if "Discord_Webhook" in config:
+                            config['Discord_Webhook'] = None
                         if "use_env" in config:
                             config["use_env"] = "true"
 

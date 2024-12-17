@@ -29,7 +29,7 @@ try:
 
         # Standard Bottom Text aus Config abrufen
         Custom_Config_Text = config_data['config'][2]['Custom_Text']
-        MaintenanceMode = config_data['config'][2]['Maintenancemode']
+        MaintenanceMode = config_data['config'][2]['MaintenanceMode']
 
 except:
     print("Configfile not found - Please check the File!")
@@ -65,7 +65,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         font_medium = ImageFont.load_default()
         font_small = ImageFont.load_default()
 
-    # Fall falls es keinen Unterricht mehr in diesem Raum gibt:
+    # Fall, falls es keinen Unterricht mehr in diesem Raum gibt:
     if classNumber == 0:
         draw.text((140, 240), "Heute kein weiterer Unterricht", font=font_large, fill=0)
         draw.text((270, 320), "in diesem Raum", font=font_large, fill=0)
