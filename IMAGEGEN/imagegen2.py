@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import datetime, json
+
 # Configdaten importieren und auf Grundvariablen anwenden:
 try:
     with open('../config.json', 'r') as config_file:
@@ -34,11 +35,14 @@ try:
 except:
     print("Configfile not found - Please check the File!")
 
+
 # Die Hauptfunktion:
 def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, teach2, sub2, klasse2, abw2, start3, end3,
               teach3, sub3, klasse3, abw3,display_Bottom):
+    before_rect_height = 0
     # Bild erstellen (Graustufenmodus 'L')
     image = Image.new('L', (width, height), color=background_color)
+    rect_total = 0
 
     # Objekt zum Zeichnen auf dem Bild erstellen
     draw = ImageDraw.Draw(image)
@@ -82,8 +86,10 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
     rect_endtxt = "0"
     rect_teachtxt = "0"
     rect_classtxt = "0"
+    classStartHour = 0
+    classEndHour = 0
     # Nur Vordefinition
-    special = "0"
+    special = 0
     rect_color = Config_Rect_Color  # Schwarz
     rect_outline_color = 1  # Weiß
 
@@ -93,6 +99,9 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
 
     # Rechtecke zeichnen
     for i in range(classNumber):
+        # Frag nicht, aber diese Zeile ist sehr wichtig.
+        rect_height = Config_Rect_Height
+
         if currentClassPrint == 1:
             rect_subtxt = sub1
             startRaw = start1
@@ -118,48 +127,97 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         match startRaw:
             case "0810":
                 rect_starttxt = "08:10 -"
+                classStartHour = 1
             case "0855":
                 rect_starttxt = "08:55 -"
+                classStartHour = 2
             case "1000":
                 rect_starttxt = "10:00 -"
+                classStartHour = 3
             case "1045":
                 rect_starttxt = "10:45 -"
+                classStartHour = 4
             case "1145":
                 rect_starttxt = "11:45 -"
+                classStartHour = 5
             case "1230":
                 rect_starttxt = "12:30 -"
+                classStartHour = 6
             case "1345":
                 rect_starttxt = "13:45 -"
+                classStartHour = 7
             case "1430":
                 rect_starttxt = "14:30 -"
+                classStartHour = 8
             case "1530":
                 rect_starttxt = "15:30 -"
+                classStartHour = 9
             case "1615":
                 rect_starttxt = "16:15 -"
+                classStartHour = 10
         match endRaw:
             case "0855":
                 rect_endtxt = "08:55"
+                classEndHour = 1
             case "0940":
                 rect_endtxt = "09:40"
+                classEndHour = 2
             case "1045":
                 rect_endtxt = "10:45"
+                classEndHour = 3
             case "1130":
                 rect_endtxt = "11:30"
+                classEndHour = 4
             case "1230":
                 rect_endtxt = "12:30"
+                classEndHour = 5
             case "1315":
                 rect_endtxt = "13:15"
+                classEndHour = 6
             case "1430":
                 rect_endtxt = "14:30"
+                classEndHour = 7
             case "1515":
                 rect_endtxt = "15:15"
+                classEndHour = 8
             case "1615":
                 rect_endtxt = "16:15"
+                classEndHour = 9
             case "1700":
                 rect_endtxt = "17:00"
+                classEndHour = 10
+
+        # Herausfinden, wie lange die anzuzeigende Stunde ist:
+        classLength = classEndHour - classStartHour
+
+        # Vorherige Größe bestimmen, um Format nicht zu bumsen:
+        if i == 1:
+            print(rect_total)
+            rect_total = rect_total + (before_rect_height - rect_height)
+            rect_before = before_rect_height
+            print(rect_before)
+        elif i == 2:
+            rect_before = before_rect_height + rect_total
+            print(rect_total, " & ",rect_before," & ", before_rect_height)
+        else:
+            rect_before = 0
+
+        # Stunden Länger je nach insgesamter Stundenlänge oder so
+        if classLength == 0:
+            rect_height = rect_height - 25
+            before_rect_height = rect_height
+        elif classLength == 1:
+            rect_height = rect_height + 0
+            before_rect_height = rect_height
+        elif classLength == 2:
+            rect_height = rect_height + 10
+            before_rect_height = rect_height
+        elif classLength == 3:
+            rect_height = rect_height + 25
+            before_rect_height = rect_height
 
         # Rechtecke zeichnen:
-        rect_top = rect_margin_top + i * (rect_height + rect_spacing)
+        rect_top = rect_margin_top + i * (rect_before + rect_spacing)
         rect_bottom = rect_top + rect_height
         draw.rectangle([20, rect_top, width - 20, rect_bottom], fill=rect_color, outline=rect_outline_color, width=5)
 
@@ -268,7 +326,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         image.save(f"../ROOMIMAGES/{room}", 'png')
 
 
-# gen_image("2.310","1","2","SCJ","BInf","BGT 241","0","0","0","0","0","0","0","0","0","0", "0","0","0")
+gen_image("2.310", "0855", "1130", "SCJ","BInf","BGT 241",0,"1145","1315","SID","IFT","BGT 241",0,"1345","1615","WIB", "DEU","BGT 241",0, "TesLOL")
 
 # if __name__ == "__main__":
 #    try:
