@@ -192,13 +192,10 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
 
         # Vorherige Größe bestimmen, um Format nicht zu bumsen:
         if i == 1:
-            print(rect_total)
             rect_total = rect_total + (before_rect_height - rect_height)
             rect_before = before_rect_height
-            print(rect_before)
         elif i == 2:
             rect_before = before_rect_height + rect_total
-            print(rect_total, " & ",rect_before," & ", before_rect_height)
         else:
             rect_before = 0
 
@@ -326,7 +323,7 @@ def gen_image(room, start1, end1, teach1, sub1, klasse1, abw1, start2, end2, tea
         image.save(f"../ROOMIMAGES/{room}", 'png')
 
 
-gen_image("2.310", "0855", "1130", "SCJ","BInf","BGT 241",0,"1145","1315","SID","IFT","BGT 241",0,"1345","1615","WIB", "DEU","BGT 241",0, "TesLOL")
+# gen_image("2.310", "0855", "1130", "SCJ","BInf","BGT 241",0,"1145","1315","SID","IFT","BGT 241",0,"1345","1615","WIB", "DEU","BGT 241",0, "TesLOL")
 
 # if __name__ == "__main__":
 #    try:
