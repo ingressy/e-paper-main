@@ -7,6 +7,7 @@ number = [zeichen for zeichen in klasse if zeichen.isdigit()]
 
 klasse_number = str(''.join(number))[:2] + "x"
 if count >= 8:
+
     klasse_prefix = klasse[:3]
     print(f"{klasse_prefix} {klasse_number}")
 else:

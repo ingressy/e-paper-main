@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 #time things IDK
 time = datetime.datetime.now()
-#chtime = (time.strftime("%H%M"))
-chtime = "0825"
+chtime = (time.strftime("%H%M"))
+#chtime = "0825"
 chdate = (time.strftime("%Y-%m-%d"))
 start = datetime.datetime.now()
 end = start + datetime.timedelta(days=1)
@@ -91,7 +91,7 @@ def untis_get(raum):
                         subject1 = cache[3]
                         teacher1 = cache[4]
                         if cache[5] == "(cancelled)":
-                            abw1 = "1"
+                            abw1 = 1
 
                         # secound hour
                         starttime2 = cache[6]
@@ -103,7 +103,7 @@ def untis_get(raum):
                         subject2 = cache[9]
                         teacher2 = cache[10]
                         if cache[11] == "(cancelled)":
-                            abw1 = "1"
+                            abw1 = 1
 
                         #third hour
                         starttime3 = cache[12]
@@ -115,7 +115,7 @@ def untis_get(raum):
                         subject3 = cache[15]
                         teacher3 = cache[16]
                         if cache[17] == "(cancelled)":
-                            abw1 = "1"
+                            abw1 = 1
 
                         #fourth hour
                         starttime4 = cache[18]
@@ -152,7 +152,7 @@ def untis_get(raum):
 
                                 endtime1 = cache[7] #endtime = enddate2
                                 if cache[11] == "(cancelled)":
-                                    abw1 = "1"
+                                    abw1 = 1
 
                                 #make the third hour to the secound hour
                                 starttime2 = cache[12]
@@ -164,7 +164,7 @@ def untis_get(raum):
                                 subject2 = cache[15]
                                 teacher2 = cache[16]
                                 if cache[17] == "(cancelled)":
-                                    abw2 = "1"
+                                    abw2 = 1
 
                                 #fourth hour
                                 #starttime3 = cache[15]
@@ -182,6 +182,8 @@ def untis_get(raum):
                                 #klasse2 = cache[7] #klasse1 = klasse 1
 
                                 endtime2 = cache[13] #endtime = enddate2
+                                if cache[11] == "(cancelled)":
+                                    abw2 = 1
 
                                 #fourth hour
                                 starttime3 = cache[18]
@@ -192,11 +194,15 @@ def untis_get(raum):
 
                                 subject3 = cache[21]
                                 teacher3 = cache[22]
+                                if cache[23] == "(cancelled)":
+                                    abw3 = 1
 
                         if cache[14] == cache[20]: # class third hour = class fourth hour
                             if cache[15] == cache[21]:  # subject third = subject fourth
                                 subject2 = cache[15]  # subject 1 = subject 1
                                 teacher2 = cache[16]  # teacher 1 = teacher 1
+                                if cache[17] == "(cancelled)":
+                                    abw2 = 1
 
                                 klasse2 = x_klasse(14, "klasse2")
                                 #klasse2 = cache[12]  # klasse1 = klasse 1
@@ -209,12 +215,16 @@ def untis_get(raum):
                                 klasse3 = cache[32]
                                 subject3 = cache[33]
                                 teacher3 = cache[34]
+                                if cache[35] == "(cancelled)":
+                                    abw3 = 1
 
 
                         if cache[20] == cache[26]: # class fourth hour = class fifth hour
                             if cache[21] == cache[27]:  # subject fourth = subject fifth
                                 subject2 = cache[21]  # subject 1 = subject 1
                                 teacher2 = cache[22]  # teacher 1 = teacher 1
+                                if cache[23] == "(cancelled)":
+                                    abw2 = 1
 
                                 klasse2 = x_klasse(20, "klasse2")
                                 #klasse2 = cache[17]  # klasse1 = klasse 1
@@ -230,11 +240,16 @@ def untis_get(raum):
 
                                 subject3 = cache[33]
                                 teacher3 = cache[34]
+                                if cache[35] == "(cancelled)":
+                                    abw3 = 1
+
 
                         if cache[26] == cache[32]: # class fifth hour = class sixth hour
                             if cache[27] == cache[33]:  # subject fourth = subject fifth
                                 subject3 = cache[27]  # subject 1 = subject 1
                                 teacher3 = cache[28]  # teacher 1 = teacher 1
+                                if cache[29] == "(cancelled)":
+                                    abw3 = 1
 
                                 klasse3 = x_klasse(26, "klasse3")
                                 #klasse3 = cache[22]  # klasse1 = klasse 1
@@ -300,7 +315,11 @@ def x_klasse(cache_number, display_klasse):
     number = [zeichen for zeichen in klasse if zeichen.isdigit()]
 
     klasse_number = str(''.join(number))[:2] + "X"
-    if count >= 8:
+    if count >= 28:
+        klasse_number = str(''.join(number))[:1] + "XX"
+        klasse_prefix = klasse[:3]
+        return klasse_prefix + ' ' + klasse_number
+    elif count >= 8:
         klasse_prefix = klasse[:3]
         return klasse_prefix + ' ' + klasse_number
     else:
